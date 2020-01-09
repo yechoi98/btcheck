@@ -42,20 +42,20 @@
 
                   <form class="user" action="user/login" method="POST">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" name="checkbox" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">자동 로그인</label>
+                        <input type="checkbox" class="custom-control-input" name="loginCheck" id="loginCheck">
+                        <label class="custom-control-label" for="customCheck">로그인 상태유지</label>
                       </div>
                     </div>
-                    <input type="submit" value="로그인" class="btn btn-primary btn-user btn-block"></input>
+                    <input type="submit" value="로그인" class="btn btn-primary btn-user btn-block" name="submitButton" id="submitButton"></input>
                     <hr>
-                    <a href="javascript:loginWithKakao()" class="btn btn-user btn-kakao btn-block">
+                    <a href="javascript:loginWithKakao()" class="btn btn-user btn-kakao btn-block" name="kakaoButton" id="kakaoButton">
                       <i class="fas fa-comment fa-fw"></i> 카카오톡으로 로그인
                     </a>
                   </form>

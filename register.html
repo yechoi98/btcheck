@@ -39,27 +39,27 @@
               <form class="user">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="firstName" placeholder="First Name" required autofocus>
+                    <input type="text" class="form-control form-control-user" id="firstName" name="firstName" placeholder="First Name" required autofocus>
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="lastName" placeholder="Last Name" required>
+                    <input type="text" class="form-control form-control-user" id="lastName" name="lastName" placeholder="Last Name" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="email" placeholder="Email Address" required>
+                  <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="Email Address" required>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="password" placeholder="Password" 
+                    <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password" 
                     pattern="(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$" title="숫자와 특수문자 1개 이상, 영문 2개 이상 사용하여 8자리 이상 입력해주세요." required>
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="confirm_password" placeholder="Confirm Password" title="입력하신 비밀번호와 일치하지 않습니다." required>
+                    <input type="password" class="form-control form-control-user" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" title="입력하신 비밀번호와 일치하지 않습니다." required>
                   </div>
                 </div>
-                <input type="submit" value="가입하기" class="btn btn-primary btn-user btn-block" onclick="onClickRegisterBtn()"></input>
+                <input type="submit" value="가입하기" class="btn btn-primary btn-user btn-block" id="signupButton" name="signupButton" onclick="onClickRegisterBtn()"></input>
                 <hr>
-                <a href="index.html" class="btn btn-user btn-kakao btn-block">
+                <a href="javascript:loginWithKakao()" class="btn btn-user btn-kakao btn-block" name="kakaoButton" id="kakaoButton">
                   <i class="fas fa-comment fa-fw"></i> 카카오톡으로 로그인
                 </a>
               </form>
@@ -104,6 +104,25 @@ function validatePassword(){
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
   </script>
+
+<!-- KaKaoTalk Login-->
+<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('YOUR APP KEY');
+    function loginWithKakao() {
+      // 로그인 창을 띄웁니다.
+      Kakao.Auth.login({
+        success: function(authObj) {
+          alert(JSON.stringify(authObj));
+        },
+        fail: function(err) {
+          alert(JSON.stringify(err));
+        }
+      });
+    };
+  //]]>
+</script>
 
 
 </body>
