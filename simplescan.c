@@ -15,16 +15,18 @@ int main(int argc, char **argv)
   char addr[19] = { 0 };
   char name[248] = { 0 };
 
+  len  = 3; // 1.28*len초
+  max_rsp = 50;
+  flags = IREQ_CACHE_FLUSH;
+
+ while(true) {
+
   dev_id = hci_get_route(NULL);
   sock = hci_open_dev( dev_id );
   if (dev_id < 0 || sock < 0) {
        perror("opening socket");
        exit(1);
   }
-
-  len  = 7;
-  max_rsp = 255;
-  flags = IREQ_CACHE_FLUSH;
 
   ii = (inquiry_info*)malloc(max_rsp * sizeof(inquiry_info));
   while(j<3){
@@ -45,5 +47,7 @@ int main(int argc, char **argv)
 
   free( ii );
   close( sock );
+ }
+
   return 0;
 }
