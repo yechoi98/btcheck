@@ -5,6 +5,9 @@
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
+#include <mongoc/mongoc.h>
+#include <bson/bson.h>
+#include <time.h>
 
 int main(int argc, char **argv)
 {
@@ -13,11 +16,12 @@ int main(int argc, char **argv)
   int dev_id, sock, len, flags;
   char addr[19] = { 0 };
   char name[248] = { 0 };
+  char *str;
+  bson_t *document;
 
-  len  = 3; // 1.28*len초
+  len  = 2; // 1.28*len초
   max_rsp = 50;
   flags = IREQ_CACHE_FLUSH;
-
  while(1) {
 
   dev_id = hci_get_route(NULL);
@@ -38,7 +42,12 @@ int main(int argc, char **argv)
        if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name),
            name, 0) < 0)
        strcpy(name, "[unknown]");
-       printf("%s  %s\n", addr, name);
+       document=bson_new();
+       BSON_APPEND_UTF8 (document, "first", "Grace");
+       str=bson_as_canonical_extended_json(document, NULL);
+       printf("%s₩n", str);
+       bson_free(str);
+       bson_destroy(document);
   }
   printf("\n");
 
