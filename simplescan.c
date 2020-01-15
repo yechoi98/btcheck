@@ -42,13 +42,17 @@ int main(int argc, char **argv)
        if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name),
            name, 0) < 0)
        strcpy(name, "[unknown]");
+       
+  }
+
        document=bson_new();
        BSON_APPEND_UTF8 (document, "first", "Grace");
        str=bson_as_canonical_extended_json(document, NULL);
        printf("%s₩n", str);
        bson_free(str);
        bson_destroy(document);
-  }
+
+
   printf("\n");
 
 
