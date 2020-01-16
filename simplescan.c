@@ -15,14 +15,20 @@ int main(int argc, char **argv)
   int max_rsp, num_rsp;
   int dev_id, sock, len, flags;
   char addr[19] = { 0 };
-  char name[248] = { 0 };
   char *str;
   bson_t *document;
+  mongoc_client_t *client;
+  mongoc_collection_t *collection;
+  bson_error_t error;
+  bson_oid_t oid;
+  struct tm  ts;
+  char       buf[80];
 
-  len  = 2; // 1.28*len초
+  len  = 5; // 1.28*len초
   max_rsp = 50;
   flags = IREQ_CACHE_FLUSH;
- while(1) {
+
+  while(1) {
 
   dev_id = hci_get_route(NULL);
   sock = hci_open_dev( dev_id );
@@ -32,33 +38,41 @@ int main(int argc, char **argv)
   }
 
   ii = (inquiry_info*)malloc(max_rsp * sizeof(inquiry_info));
-	  
   num_rsp = hci_inquiry(dev_id, len, max_rsp, NULL, &ii, flags);
   if( num_rsp < 0 ) perror("hci_inquiry");
 
+   mongoc_init ();
+
+   
+   client = mongoc_client_new ("mongodb://yechoi:0000@192.168.1.13:27017/");
+   collection = mongoc_client_get_collection (client, "mydb", "mycoll");
+
+
   for (int i = 0; i < num_rsp; i++) {
        ba2str(&(ii+i)->bdaddr, addr);
-       memset(name, 0, sizeof(name));
-       if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name),
-           name, 0) < 0)
-       strcpy(name, "[unknown]");
+       time_t rawtime = time(NULL); 
+       ts = *localtime(&rawtime);
+       strftime(buf, sizeof(buf), "%a %Y-%m-%d %H:%M:%S %Z", &ts);
+       document=bson_new();
+       bson_oid_init (&oid, NULL);
+       BSON_APPEND_OID (document, "_id", &oid);
+       BSON_APPEND_UTF8 (document, "address", addr);
+       BSON_APPEND_UTF8 (document, "time", buf);
+       if (!mongoc_collection_insert_one (
+          collection, document, NULL, NULL, &error)) {
+       fprintf (stderr, "%s\n", error.message);
+    }
+       bson_destroy(document);
        
   }
 
-       document=bson_new();
-       BSON_APPEND_UTF8 (document, "first", "Grace");
-       str=bson_as_canonical_extended_json(document, NULL);
-       printf("%s₩n", str);
-       bson_free(str);
-       bson_destroy(document);
-
-
   printf("\n");
-
-
+  
+  mongoc_client_destroy(client);
+  mongoc_collection_destroy(collection);
+  mongoc_cleanup();
   free( ii );
   close( sock );
  }
-
   return 0;
 }
