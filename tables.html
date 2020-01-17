@@ -131,46 +131,28 @@
               <h6 class="m-0 font-weight-bold text-primary">선택</h6>
             </div>
             <div class="card-body text-center">
-              <div class="btn-group">
-                <div class="dropdown mb-4">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    과목을 선택하세요
-                  </button>
-                  <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">자바프로그래밍</a>
-                    <a class="dropdown-item" href="#">컴퓨터구조</a>
-                    <a class="dropdown-item" href="#">알고리즘</a>
-                  </div>
-                </div>
-              </div>
-              <div class="btn-group">
-                <div class="dropdown mb-4">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    학기를 선택하세요
-                  </button>
-                  <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">2020년 1학기</a>
-                    <a class="dropdown-item" href="#">2020년 2학기</a>
-                    <a class="dropdown-item" href="#">2019년 2학기</a>
-                    <a class="dropdown-item" href="#">2019년 1학기</a>
-                  </div>
-                </div>
-              </div>
-              <div class="btn-group">
-                <div class="dropdown mb-4">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    날짜를 선택하세요
-                  </button>
-                  <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">2020년 3월 4일</a>
-                    <a class="dropdown-item" href="#">2020년 3월 5일</a>
+              
+              <select class="browser-default custom-select">
+                <option selected>학기를 선택하세요</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+              <div class="my-2"></div>
+              <select class="browser-default custom-select">
+                <option selected>과목을 선택하세요</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+              <div class="my-2"></div>
+              <select class="browser-default custom-select">
+                <option selected>날짜를 선택하세요</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
 
-                  </div>
-                </div>
-              </div>
               <div class="my-2"></div>
               <a href="#" class="btn btn-success btn-icon-split">
                 <span class="icon text-white-50">
