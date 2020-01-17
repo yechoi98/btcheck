@@ -85,8 +85,3 @@ function loginWithKakao() {
 var st_date = new Date().toISOString().substr(0, 10).replace('T', ' ');
 var result=document.getElementById("time-result")
 result.innerHTML=st_date
-
-//change popup
-function showPopup() {
-  window.open("changing.html", "Mac Address", "width=400, height=300, left=100, top=50,location=no,status=no,scrollbars=no");
-}
