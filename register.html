@@ -49,6 +49,9 @@
                   <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="Email Address" required>
                 </div>
                 <div class="form-group">
+                  <input type="text" class="form-control form-control-user" maxlength="8" pattern="^[0-9]*$" title="학번을 입력해주세요" id="studentNumber" name="studentNumber" placeholder="Student Number" required>
+                </div>
+                <div class="form-group">
                   <input type="text" maxlength="17" class="form-control form-control-user" id="macAddress"
                     name="macAddress" placeholder="Mac Address" required
                     pattern="^([0-9a-fA-F][0-9a-fA-F]:){5}.[0-9a-fA-F]$" title="ab:00:cd:00:ef:00의 형태로 입력해주세요.">
