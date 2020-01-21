@@ -44,7 +44,7 @@ int main(int argc, char **argv)
    mongoc_init ();
 
    
-   client = mongoc_client_new ("mongodb://yechoi:0000@192.168.1.13:27017/");
+   client = mongoc_client_new ("mongodb://mhchoi:0@192.168.1.13:27017/");
    collection = mongoc_client_get_collection (client, "mydb", "mycoll");
 
 

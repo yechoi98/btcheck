@@ -10,7 +10,7 @@
   <meta name="author" content="">
 
 
-  <title> BT-CHECK</title>
+  <title> BT-CHECK - 메인 </title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -142,7 +142,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">오늘 날짜</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="time-result"></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" name="time-result" id="time-result"></div>
                     </div>
                   </div>
                 </div>
@@ -379,6 +379,12 @@
       <script src="js/demo/chart-area-demo.js"></script>
       <script src="js/demo/chart-pie-demo.js"></script>
 
+      <!-- Current Date-->
+      <script>            
+      var st_date = new Date().toISOString().substr(0, 10).replace('T', ' ');
+      var result=document.getElementById("time-result");
+      result.innerHTML=st_date;
+      </script>
 </body>
 
 
