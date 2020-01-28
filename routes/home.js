@@ -1,32 +1,55 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('../config/passport');
 
 // Home
 router.get('/', function(req, res){
-  res.render('home');
+  res.render('home/welcome');
 });
-
 
 // Login
 router.get('/login', function (req,res) {
   var username = req.flash('username')[0];
   var errors = req.flash('errors')[0] || {};
-  res.render('login', {
+  res.render('home/login', {
     username:username,
     errors:errors
   });
 });
 
-// Mac Address Information
-router.get('/macinfo', function(req, res){
-  res.render('macinfo');
+// Post Login
+router.post('/login',
+  function(req,res,next){
+    var errors = {};
+    var isValid = true;
+
+    if(!req.body.username){
+      isValid = false;
+      errors.username = 'Username is required!';
+    }
+    if(!req.body.password){
+      isValid = false;
+      errors.password = 'Password is required!';
+    }
+
+    if(isValid){
+      next();
+    }
+    else {
+      req.flash('errors',errors);
+      res.redirect('/login');
+    }
+  },
+  passport.authenticate('local-login', {
+    successRedirect : '/',
+    failureRedirect : '/login'
+  }
+));
+
+// Logout
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
 });
-
-
-// Forgot Password
-router.get('/forgot-password', function(req, res){
-  res.render('forgot-password');
-});
-
 
 module.exports = router;

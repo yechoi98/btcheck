@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <%- include('partials/head') %>
+  <%- include('../partials/head') %>
 </head>
 
 <body class="bg-gradient-primary">
@@ -25,20 +25,35 @@
                     <h1 class="h4 text-gray-900 mb-4">환영합니다!</h1>
                   </div>
 
-                  <form class="user" action="user/login" method="POST">
+                  <form class="user" action="/login" method="post">
+
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="text" id="username" name="username" value="<%= username %>" class="form-control form-control-user <%= (errors.username)?'is-invalid':'' %>" placeholder="Enter Email Address...">
+                      <% if(errors.username){ %>
+                        <span class="invalid-feedback"><%= errors.username %></span>
+                      <% } %>
                     </div>
+
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password">
+                      <input type="password" id="password" name="password" class="form-control form-control-user <%= (errors.password)?'is-invalid':'' %>" placeholder="Password">
+                      <% if(errors.password){ %>
+                        <span class="invalid-feedback"><%= errors.password %></span>
+                      <% } %>
                     </div>
+
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" name="loginCheck" id="loginCheck">
                         <label class="custom-control-label" for="customCheck">로그인 상태유지</label>
                       </div>
                     </div>
+
+                    <% if(errors.login){ %>
+                      <div class="invalid-feedback d-block"><%= errors.login %></div>
+                    <% } %>
+
                     <input type="submit" value="로그인" class="btn btn-primary btn-user btn-block" name="submitButton" id="submitButton"></input>
+
                   </form>
 
                   <hr>
@@ -59,7 +74,7 @@
     </div>
 
   </div>
-  <%- include('partials/foot') %>
+  <%- include('../partials/foot') %>
 </body>
 
 </html>
