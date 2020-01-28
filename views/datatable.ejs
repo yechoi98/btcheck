@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+</head>
+
+<body id="page-top">
+
+  <!-- Sidebar & Topbar-->
+  <%- include('../partials/head') %>
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">과목, 학기, 날짜를 선택하고 확인 버튼을 누르면 아래에 출석부가 표시됩니다</a>.</p>
+
+    <!-- SelectBox -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">선택</h6>
+      </div>
+      <div class="card-body text-center">
+        <div class="my-2"></div>
+        <select class="browser-default custom-select">
+          <option selected>과목을 선택하세요</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <div class="my-2"></div>
+        <select class="browser-default custom-select">
+          <option selected>날짜를 선택하세요</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+
+        <div class="my-2"></div>
+        <a href="#" class="btn btn-success btn-icon-split">
+          <span class="icon text-white-50">
+            <i class="fas fa-check"></i>
+          </span>
+          <span class="text">확인</span>
+        </a>
+      </div>
+    </div>
+
+
+    <!-- DataTales -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">출석부</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>이름</th>
+                <th>학과</th>
+                <th>학번</th>
+                <th>날짜</th>
+                <th>출석</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>#</th>
+                <th>이름</th>
+                <th>학과</th>
+                <th>학번</th>
+                <th>날짜</th>
+                <th>출석</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <tr class="table-success">
+                <td>1</td>
+                <td>최영은</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+              <tr class="table-warning">
+                <td>2</td>
+                <td>이지각</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>△</td>
+              </tr>
+              <tr class="table-danger">
+                <td>3</td>
+                <td>김결석</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>X</td>
+              </tr>
+              <tr class="table-success">
+                <td>4</td>
+                <td>OOO</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+              <tr class="table-success">
+                <td>5</td>
+                <td>OOO</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+              <tr class="table-success">
+                <td>6</td>
+                <td>OOO</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+              <tr class="table-success">
+                <td>7</td>
+                <td>OOO</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+              <tr class="table-success">
+                <td>8</td>
+                <td>OOO</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+              <tr class="table-success">
+                <td>9</td>
+                <td>OOO</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+              <tr class="table-success">
+                <td>10</td>
+                <td>OOO</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+              <tr class="table-success">
+                <td>11</td>
+                <td>OOO</td>
+                <td>컴퓨터정보공학과</td>
+                <td>21828558</td>
+                <td>2019/12/30</td>
+                <td>○</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container-fluid -->
+
+  </div>
+  <!-- End of Main Content -->
+
+  <!-- Footer -->
+  <footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright &copy; BT-CHECK 2020</span>
+      </div>
+    </div>
+  </footer>
+  <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <%- include('../partials/logout') %>
+  <%- include('../partials/foot') %>
+</body>
+
+</html>

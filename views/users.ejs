@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body id="page-top">
+    <!-- Sidebar & Topbar-->
+    <%- include('../partials/head') %>
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Change</h1>
+        <p class="mb-4">학생의 Mac Address를 수정합니다.</a></p>
+
+        <!-- DataTales -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+                    data-target="#exampleModal">
+                    수정
+                </button>
+
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>이름</th>
+                                <th>학과</th>
+                                <th>학번</th>
+                                <th>이메일</th>
+                                <th>Mac Address</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>이름</th>
+                                <th>학과</th>
+                                <th>학번</th>
+                                <th>이메일</th>
+                                <th>Mac Address</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>최영은</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>이지각</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>김결석</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>OOO</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>OOO</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>OOO</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>OOO</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>OOO</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>OOO</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>OOO</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                            <tr class="table">
+                                <td><input type="checkbox"></input></td>
+                                <td>OOO</td>
+                                <td>컴퓨터정보공학과</td>
+                                <td>21828558</td>
+                                <td>email@naver.com</td>
+                                <td>00:00:00:00:00:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; BT-CHECK 2020</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <%- include('../partials/logout') %>
+
+    <%- include('../partials/foot') %>
+</body>
+
+</html>
