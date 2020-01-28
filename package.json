@@ -1,0 +1,22 @@
+{
+  "name": "btcheck",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yechoi98/btcheck.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yechoi98/btcheck/issues"
+  },
+  "homepage": "https://github.com/yechoi98/btcheck#readme"
+}
