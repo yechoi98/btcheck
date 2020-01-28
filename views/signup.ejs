@@ -13,67 +13,70 @@
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-          <div class="col-lg-7">
-            <div class="p-5">
-              <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">새 계정을 만드세요!</h1>
-              </div>
-              <form class="user">
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="firstName" placeholder="First Name" required autofocus>
-                  </div>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="lastName" placeholder="Last Name" required>
-                  </div>
+            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+            <div class="col-lg-7">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">새 계정을 만드세요!</h1>
                 </div>
-                <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="email" placeholder="Email Address" required>
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="password" placeholder="Password" 
-                    pattern="(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$" title="숫자와 특수문자 1개 이상, 영문 2개 이상 사용하여 8자리 이상 입력해주세요." required>
+                <form class="user" action="/users" method="post">
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Name" required autofocus>
+                    </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-user" maxlength="8" pattern="^[0-9]*$" title="학번을 입력해주세요" id="studentNumber" name="studentNumber" placeholder="Student Number" required>
                   </div>
-                  <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="confirm_password" placeholder="Confirm Password" title="입력하신 비밀번호와 일치하지 않습니다." required>
+                  <div class="form-group">
+                    <input type="text" maxlength="17" class="form-control form-control-user" id="macAddress"
+                      name="macAddress" placeholder="Mac Address" required
+                      pattern="^([0-9a-fA-F][0-9a-fA-F]:){5}.[0-9a-fA-F]$" title="ab:00:cd:00:ef:00의 형태로 입력해주세요.">
                   </div>
+                  <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                      <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password" 
+                      pattern="(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$" title="숫자와 특수문자 1개 이상, 영문 2개 이상 사용하여 8자리 이상 입력해주세요." required>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="password" class="form-control form-control-user" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" title="입력하신 비밀번호와 일치하지 않습니다." required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="a" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                        Student
+                        </label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="b">
+                        <label class="form-check-label" for="exampleRadios2">
+                        Professor
+                        </label>
+                     </div>
+                  </div>
+
+                  <input type="submit" value="가입하기" class="btn btn-primary btn-user btn-block" id="signupButton" name="signupButton"></input>
+
+                </form>
+                <hr>
+                <div class="text-center">
+                  <a class="small" href="/macinfo" target="_blank">Mac Address가 어디에 있나요?</a>
                 </div>
-                <input type="submit" value="가입하기" class="btn btn-primary btn-user btn-block" onclick="onClickRegisterBtn()"></input>
-              </form>
-              <hr>
-              <div class="text-center">
-                <a class="small" href="forgot-password.html">비밀번호를 잊으셨나요?</a>
-              </div>
-              <div class="text-center">
-                <a class="small" href="index.html">계정이 이미 있으신가요? 로그인하세요!</a>
+                <div class="text-center">
+                  <a class="small" href="/forgot-password">비밀번호를 잊으셨나요?</a>
+                </div>
+                <div class="text-center">
+                  <a class="small" href="/login">계정이 이미 있으신가요? 로그인하세요!</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
 
   </div>
   <%- include('partials/foot') %>
-  <!-- Confirm password -->
-  <script>
-  var password = document.getElementById("password")
-  , confirm_password = document.getElementById("confirm_password");
-
-function validatePassword(){
-  if(password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("비밀번호가 일치하지 않습니다.");
-  } else {
-    confirm_password.setCustomValidity('');
-  }
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
-  </script>
-
 
 </body>
 
