@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 
    
    client = mongoc_client_new ("mongodb://mhchoi:0@192.168.1.13:27017/");
-   collection = mongoc_client_get_collection (client, "btcheck", "scan");
+   collection = mongoc_client_get_collection (client, "btcheck", "scans");
 
 
   for (int i = 0; i < num_rsp; i++) {

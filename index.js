@@ -43,7 +43,7 @@ app.use(function(req,res,next){
 
 // Routes
 app.use('/', require('./routes/home'));
-// app.use('/datatable', require('./routes/datatable'));
+app.use('/datatable', require('./routes/scans'));
 app.use('/users', require('./routes/users'));
 
 // Port setting

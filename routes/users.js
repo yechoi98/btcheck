@@ -3,6 +3,16 @@ var router = express.Router();
 var User = require('../models/User');
 var util = require('../util');
 
+// Index
+router.get('/', function(req, res){
+  User.find({})
+    .sort({macAddress:1})
+    .exec(function(err, users){
+      if(err) return res.json(err);
+      res.render('users/index', {users:users});
+    });
+});
+
 // New
 router.get('/new', function(req, res){
   var user = req.flash('user')[0] || {};
@@ -68,6 +78,14 @@ router.put('/:username', util.isLoggedin, checkPermission, function(req, res, ne
         }
         res.redirect('/users/'+user.username);
       });
+  });
+});
+
+// destroy
+router.delete('/:username', function(req, res){
+  User.deleteOne({username:req.params.username}, function(err){
+    if(err) return res.json(err);
+    res.redirect('/users');
   });
 });
 

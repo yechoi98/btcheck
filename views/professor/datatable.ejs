@@ -2,19 +2,19 @@
 <html lang="en">
 
 <head>
-  <%- include('partials/head') %>
+  <%- include('../partials/head') %>
 </head>
 
 <body id="page-top">
 
   <!-- Sidebar & Topbar-->
-  <%- include('partials/head') %>
+  <%- include('../partials/nav') %>
   <!-- Begin Page Content -->
   <div class="container-fluid">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">과목, 학기, 날짜를 선택하고 확인 버튼을 누르면 아래에 출석부가 표시됩니다</a>.</p>
+    <p class="mb-4">과목, 날짜를 선택하고 확인 버튼을 누르면 아래에 출석부가 표시됩니다</a>.</p>
 
     <!-- SelectBox -->
     <div class="card shadow mb-4">
@@ -60,9 +60,8 @@
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th>#</th>
+                <th><input type="checkbox" onchange="checkAll(this)" name="chk[]"/></th>
                 <th>이름</th>
-                <th>학과</th>
                 <th>학번</th>
                 <th>날짜</th>
                 <th>출석</th>
@@ -70,102 +69,30 @@
             </thead>
             <tfoot>
               <tr>
-                <th>#</th>
+                <th><input type="checkbox" onchange="checkAll(this)" name="chk[]"/></th>
                 <th>이름</th>
-                <th>학과</th>
                 <th>학번</th>
                 <th>날짜</th>
                 <th>출석</th>
               </tr>
             </tfoot>
             <tbody>
-              <tr class="table-success">
-                <td>1</td>
-                <td>최영은</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
+              <% if(users == null || users.length == 0){ %>
+                <tr>
+                  <td>There is no user yet.</td>
+                </tr>
+              <% } %>
+              <% users.forEach(function(user) { %>
+              <tr>
+                <td><input type="checkbox" onchange="checkAll(this)" name="chk[]"/></td>
+                <td><%= user.name %></td>
+                <td><%= user.username %></td>
+                <td> - </td>
+                <td><%=  %></td>
               </tr>
-              <tr class="table-warning">
-                <td>2</td>
-                <td>이지각</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>△</td>
-              </tr>
-              <tr class="table-danger">
-                <td>3</td>
-                <td>김결석</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>X</td>
-              </tr>
-              <tr class="table-success">
-                <td>4</td>
-                <td>OOO</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
-              </tr>
-              <tr class="table-success">
-                <td>5</td>
-                <td>OOO</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
-              </tr>
-              <tr class="table-success">
-                <td>6</td>
-                <td>OOO</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
-              </tr>
-              <tr class="table-success">
-                <td>7</td>
-                <td>OOO</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
-              </tr>
-              <tr class="table-success">
-                <td>8</td>
-                <td>OOO</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
-              </tr>
-              <tr class="table-success">
-                <td>9</td>
-                <td>OOO</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
-              </tr>
-              <tr class="table-success">
-                <td>10</td>
-                <td>OOO</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
-              </tr>
-              <tr class="table-success">
-                <td>11</td>
-                <td>OOO</td>
-                <td>컴퓨터정보공학과</td>
-                <td>21828558</td>
-                <td>2019/12/30</td>
-                <td>○</td>
+              <% }) %>
+              <tr>
+                
               </tr>
             </tbody>
           </table>
@@ -201,8 +128,8 @@
   </a>
 
   <!-- Logout Modal-->
-  <%- include('partials/logout') %>
-  <%- include('partials/foot') %>
+  <%- include('../partials/logout') %>
+  <%- include('../partials/foot') %>
 </body>
 
 </html>
