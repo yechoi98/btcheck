@@ -6,26 +6,37 @@ var userSchema = mongoose.Schema({
   username:{
     type:String,
     required:[true,'Username is required!'],
-    match:[/^.{4,12}$/,'Should be 4-12 characters!'],
+    match:[/^.{4,8}$/,'Should be 4-8 characters!'],
     trim:true,
     unique:true
   },
   password:{
     type:String,
     required:[true,'Password is required!'],
-    select:false
+    select:false,
+    trim:true
   },
   name:{
     type:String,
     required:[true,'Name is required!'],
-    match:[/^.{4,12}$/,'Should be 4-12 characters!'],
+    match:[/^.{3,12}$/,'Should be 3-12 characters!'],
     trim:true
   },
-  email:{
-    type:String,
-    match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Should be a vaild email address!'],
-    trim:true
-  }
+  job: {
+    type: String,
+    required: [true, 'Job is required!']
+  },
+  subject: {
+    type: String,
+    default: "수정바람"
+  },
+  macAddress: {
+    type: String,
+    required: [true, 'Address is required!'],
+    match: [/^([0-9a-fA-F][0-9a-fA-F]:){5}.[0-9a-fA-F]$/, ' ab:00:cd:00:ef:00의 형태로 입력하세요!'],
+    trim: true,
+    unique:true
+  },
 },{
   toObject:{virtuals:true}
 });
@@ -48,8 +59,8 @@ userSchema.virtual('newPassword')
   .set(function(value){ this._newPassword=value; });
 
 // password validation
-var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
-var passwordRegexErrorMessage = 'Should be minimum 8 characters of alphabet and number combination!';
+var passwordRegex = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+var passwordRegexErrorMessage = 'Should be minimum 8 characters of alphabet, number, meta character combination!';
 userSchema.path('password').validate(function(v) {
   var user = this;
 

@@ -1,78 +1,101 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
     <%- include('../partials/head') %>
-  </head>
-  <body>
-    <%- include('../partials/nav') %>
+</head>
 
-    <div class="container mb-3">
+<body class="bg-gradient-primary">
 
-      <h3 class="contentBoxTop mb-3">New User</h3>
+  <div class="container">
 
-      <form action="/users" method="post">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+            <div class="col-lg-7">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">새 계정을 만드세요!</h1>
+                </div>
+                <form class="user" action="/users" method="post">
+                    <div class="form-group">
+                      <input type="text" id="name" name="name"  value="<%= user.name %>"  class="form-control form-control-user" placeholder="Name" required autofocus>
+                      <% if(errors.name){ %>
+                        <span class="invalid-feedback"><%= errors.name.message %></span>
+                      <% } %>
+                    </div>
+                  <div class="form-group">
+                    <input type="text" id="username" name="username" value="<%= user.username %>" class="form-control form-control-user <%= (errors.username)?'is-invalid':'' %>" maxlength="8" pattern="^[0-9]*$" title="학번을 입력해주세요" placeholder="Student Number" required>
+                    <% if(errors.username){ %>
+                      <span class="invalid-feedback"><%= errors.username.message %></span>
+                    <% } %>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" maxlength="17" id="macAddress" name="macAddress" value="<%= user.macAddress %>" class="form-control form-control-user <%= (errors.macAddress)?'is-invalid':'' %>" placeholder="Mac Address" required
+                      pattern="^([0-9a-fA-F][0-9a-fA-F]:){5}.[0-9a-fA-F]$" title="ab:00:cd:00:ef:00의 형태로 입력해주세요.">
+                     <% if(errors.macAddress){ %>
+                       <span class="invalid-feedback"><%= errors.macAddress.message %></span>
+                     <% } %>
+                   </div>
+                  <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                      <input type="password" id="password" name="password" value="" class="form-control form-control-user <%= (errors.password)?'is-invalid':'' %>"  placeholder="Password" 
+                      pattern="(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$" title="숫자와 특수문자 1개 이상, 영문 2개 이상 사용하여 8자리 이상 입력해주세요." required>
+                      <% if(errors.password){ %>
+                        <span class="invalid-feedback"><%= errors.password.message %></span>
+                      <% } %>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="password" id="passwordConfirmation" name="passwordConfirmation" value="" class="form-control form-control-user <%= (errors.passwordConfirmation)?'is-invalid':'' %>" placeholder="Confirm Password" title="입력하신 비밀번호와 일치하지 않습니다." required>
+                      <% if(errors.passwordConfirmation){ %>
+                        <span class="invalid-feedback"><%= errors.passwordConfirmation.message %></span>
+                      <% } %>
+                    </div>
+                  </div>
 
-        <div class="form-group row">
-          <label for="username" class="col-sm-3 col-form-label">Username*</label>
-          <div class="col-sm-9">
-            <input type="text" id="username" name="username" value="<%= user.username %>" class="form-control <%= (errors.username)?'is-invalid':'' %>">
-            <% if(errors.username){ %>
-              <span class="invalid-feedback"><%= errors.username.message %></span>
-            <% } %>
+                  <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <input type="radio" name="job" id="radioStudent" value="student" class="form-check-input <%= (errors.job)?'is-invalid':'' %>">
+                    <label class="form-check-label" for="radio1">I'm a student</label>
+                  </div>
+                  <div class="form-check form-check-inline <%= (errors.job)?'is-invalid':'' %>">
+                    <input type="radio" name="job" id="radioProfessor" value="professor" class="form-check-input" >
+                    <label class="form-check-label" for="radio2">I'm a professor</label>
+                  </div>
+                  <% if(errors.job){ %>
+                    <span class="invalid-feedback"><%= errors.job.message %></span>
+                  <% } %>
+                </div>
+                  
+                  <% if(errors.unhandled){ %>
+                    <div class="alert alert-danger">
+                      <%= errors.unhandled %>
+                    </div>
+                  <% } %>
+                  
+                  <input type="submit" value="가입하기" class="btn btn-primary btn-user btn-block" id="signupButton" name="signupButton"></input>
+                </form>
+                <hr>
+                <div class="text-center">
+                  <a class="small" href="/macinfo" target="_blank">Mac Address가 어디에 있나요?</a>
+                </div>
+                <div class="text-center">
+                  <a class="small" href="/forgot-password">비밀번호를 잊으셨나요?</a>
+                </div>
+                <div class="text-center">
+                  <a class="small" href="/login">계정이 이미 있으신가요? 로그인하세요!</a>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="name" class="col-sm-3 col-form-label">Name*</label>
-          <div class="col-sm-9">
-            <input type="text" id="name" name="name" value="<%= user.name %>" class="form-control <%= (errors.name)?'is-invalid':'' %>">
-            <% if(errors.name){ %>
-              <span class="invalid-feedback"><%= errors.name.message %></span>
-            <% } %>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="email" class="col-sm-3 col-form-label">Email</label>
-          <div class="col-sm-9">
-            <input type="text" id="email" name="email" value="<%= user.email %>" class="form-control <%= (errors.email)?'is-invalid':'' %>">
-            <% if(errors.email){ %>
-              <span class="invalid-feedback"><%= errors.email.message %></span>
-            <% } %>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="password" class="col-sm-3 col-form-label">Password*</label>
-          <div class="col-sm-9">
-            <input type="password" id="password" name="password" value="" class="form-control <%= (errors.password)?'is-invalid':'' %>">
-            <% if(errors.password){ %>
-              <span class="invalid-feedback"><%= errors.password.message %></span>
-            <% } %>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="passwordConfirmation" class="col-sm-3 col-form-label">Password Confirmation*</label>
-          <div class="col-sm-9 col-sm-offset-3">
-            <input type="password" id="passwordConfirmation" name="passwordConfirmation" value="" class="form-control <%= (errors.passwordConfirmation)?'is-invalid':'' %>">
-            <% if(errors.passwordConfirmation){ %>
-              <span class="invalid-feedback"><%= errors.passwordConfirmation.message %></span>
-            <% } %>
-          </div>
-        </div>
-        <p>
-          <small>*Required</small>
-        </p>
-
-        <% if(errors.unhandled){ %>
-          <div class="alert alert-danger">
-            <%= errors.unhandled %>
-          </div>
-        <% } %>
-
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        
-      </form>
-
+      </div>
     </div>
-  </body>
+
+  </div>
+  <%- include('../partials/foot') %>
+
+</body>
+
 </html>
