@@ -2,9 +2,10 @@ var express  = require('express');
 var router = express.Router();
 var Scan = require('../models/Scan');
 var User = require('../models/User');
+var util = require('../util');
 
 // Index
-router.get('/', function(req, res){
+router.get('/', util.isLoggedin, checkPermission ,function(req, res){
   Scan.find({})
     .sort({address:1})
     .exec(function(err, scans){
@@ -65,3 +66,9 @@ router.delete('/:id', function(req, res){
 });
 
 module.exports = router;
+
+// private functions
+function checkPermission(req, res, next){
+  if(req.user.job != "professor") return util.noPermission(req, res);
+  next();
+}
