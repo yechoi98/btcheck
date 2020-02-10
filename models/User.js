@@ -86,8 +86,10 @@ userSchema.path('password').validate(function(v) {
     else if(!bcrypt.compareSync(user.currentPassword, user.originalPassword)){
       user.invalidate('currentPassword', 'Current Password is invalid!');
     }
-
-    if(user.newPassword && !passwordRegex.test(user.newPassword)){
+    if(!user.newPassword){
+      user.invalidate('newPassword', 'New Password is required!');
+    }
+    else if(user.newPassword && !passwordRegex.test(user.newPassword)){
       user.invalidate("newPassword", passwordRegexErrorMessage);
     }
     else if(user.newPassword !== user.passwordConfirmation) {

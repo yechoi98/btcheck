@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <%- include('../partials/head') %>
@@ -7,8 +7,20 @@
 
 <body id="page-top">
 
-    <!-- Sidebar & Topbar-->
-    <%- include('../partials/head') %>
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    
+    <!-- Sidebar -->
+    <%- include('../partials/sidebar') %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+    <!-- Topbar -->
+    <%- include('../partials/topbar') %>
 
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -63,16 +75,6 @@
     </div>
     <!-- End of Main Content -->
 
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; BT-CHECK 2020</span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
-
     </div>
     <!-- End of Content Wrapper -->
 
@@ -84,9 +86,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <%- include('../partials/logout') %>
-    <%- include('../partials/foot') %>
+    <%- include('../partials/js') %>
 </body>
 
 </html>
