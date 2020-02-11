@@ -15,14 +15,14 @@
            <!-- Nav Item - Home -->
            <li class="nav-item active">
             <a class="nav-link" href="/">
-              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <i class="fas fa-home"></i>
               <span>Home</span></a>
           </li>
 
       <% if(isAuthenticated){ %>
 
       <!-- Divider -->
-      <hr class="sidebar-divider">
+      <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
@@ -33,10 +33,10 @@
 
       <% if(currentUser.job=="professor"){ %>
       <!-- Divider -->
-      <hr class="sidebar-divider">
+      <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="/datatable">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
