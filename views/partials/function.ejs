@@ -1,0 +1,11 @@
+<%
+chkAtd = function(user, scans) {
+    console.log('유저 맥어드레스: ', user.macAddress)
+    
+    scans.forEach(function(scan){
+        console.log('주변기기 맥어드레스:', scan.address)
+        console.log('주변기기 시간: ', scan.time)
+    })
+    return '출석'
+}
+%>

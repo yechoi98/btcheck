@@ -3,6 +3,7 @@
 
 <head>
   <%- include('../partials/head') %>
+  <% include('../partials/function') %> 
 </head>
 
 <body id="page-top">
@@ -101,7 +102,7 @@
                 <td><%= user.name %></td>
                 <td><%= user.username %></td>
                 <td> - </td>
-                <td><%=  %></td>
+                <td><%chkAtd(user, scans)%></td>
               </tr>
               <% }) %>
               <tr>
