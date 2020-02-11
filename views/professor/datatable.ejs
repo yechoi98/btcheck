@@ -91,11 +91,13 @@
               </tr>
             </tfoot>
             <tbody>
+
               <% if(users == null || users.length == 0){ %>
                 <tr>
                   <td>There is no user yet.</td>
                 </tr>
               <% } %>
+
               <% users.forEach(function(user) { %>
               <tr>
                 <td><input type="checkbox" name="chk[]"/></td>
@@ -105,9 +107,7 @@
                 <td><%chkAtd(user, scans)%></td>
               </tr>
               <% }) %>
-              <tr>
-                
-              </tr>
+              
             </tbody>
           </table>
         </div>

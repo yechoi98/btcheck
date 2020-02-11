@@ -2,10 +2,21 @@
 chkAtd = function(user, scans) {
     console.log('유저 맥어드레스: ', user.macAddress)
     
+    compare = new Date(2020, 1, 12, 11, 30)
+    console.log('비교시간: ',compare.toString())
+
     scans.forEach(function(scan){
-        console.log('주변기기 맥어드레스:', scan.address)
-        console.log('주변기기 시간: ', scan.time)
+        if(user.macAddress == scan.address){
+            if(scan.time > compare) {
+                console.log('지각')
+            } else {
+                console.log('출석')
+            }
+        }
+      console.log('주변기기 맥어드레스:', scan.address)
+     console.log('주변기기 시간: ', scan.time.getFullYear()+'년'+(scan.time.getMonth()+1)+'월'+scan.time.getDate()+'일'+scan.time.getHours()+'시'+scan.time.getMinutes()+'분'+scan.time.getSeconds()+'초')
     })
+    console.log()
     return '출석'
 }
 %>
