@@ -17,6 +17,11 @@ router.get('/login', function (req,res) {
   });
 });
 
+//forgot-password
+router.get('/forgot-password',function(req,res){
+  res.render('home/forgot-password')
+})
+
 // Post Login
 router.post('/login',
   function(req,res,next){
@@ -45,6 +50,11 @@ router.post('/login',
     failureRedirect : '/login'
   }
 ));
+
+//dashboarrd
+router.get('/dashboard',function(req,res){
+  res.render('home/dashboard')
+})
 
 // Logout
 router.get('/logout', function(req, res) {

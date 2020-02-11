@@ -20,6 +20,11 @@ router.get('/new', function(req, res){
   res.render('users/new', { user:user, errors:errors });
 });
 
+//macinfo
+router.get('/macinfo',function(req,res){
+  res.render('home/macinfo')
+})
+
 // create
 router.post('/', function(req, res){
   User.create(req.body, function(err, user){
