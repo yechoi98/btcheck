@@ -30,7 +30,8 @@
     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
     <p class="mb-4">과목, 날짜를 선택하고 확인 버튼을 누르면 아래에 출석부가 표시됩니다</a>.</p>
 
-
+    <!-- hidden -->
+    <option id='variableJSON' hidden><%= JSON.stringify(subjects); %></option>
 
     <!-- SelectBox -->
     <div class="card shadow mb-4">
@@ -43,8 +44,6 @@
           <option selected>과목을 선택하세요</option>
           <% subjects.forEach(function(subject){ %>
             <option><%= subject.subject %></option>
-            <!-- hidden -->
-            <option id='variableJSON' hidden><%= JSON.stringify(subject); %></option>
           <% }) %>
         </select>
 
