@@ -66,6 +66,24 @@
             </div>
 
             <div class="form-group row">
+              <label for="subject" class="col-sm-3 col-form-label">Subject</label>
+              <div class="col-sm-9">
+                <input type='checkbox' id='subject' name='subject_list[]' value=''> 선택없음</input>
+                <input type='checkbox' id='subject' name='subject_list[]' value='알고리즘'> 알고리즘</input>
+                <input type='checkbox' id='subject' name='subject_list[]' value='자바'> 자바</input>
+                <input type='checkbox' id='subject' name='subject_list[]' value='운영체제'> 운영체제</input>
+                <input type='checkbox' id='subject' name='subject_list[]' value='네트워크'> 네트워크</input>
+                <input type='checkbox' id='subject' name='subject_list[]' value='컴퓨터구조'> 컴퓨터구조</input>
+                
+                <!-- <input type="text" id="subject" name="subject" value="<%= user.subject %>"
+                  class="form-control <%= (errors.subject)?'is-invalid':'' %>">
+                <% if(errors.subject){ %>
+                <span class="invalid-feedback"><%= errors.subject.message %></span>
+                <% } %> -->
+              </div>
+            </div>
+
+            <div class="form-group row">
               <label for="newPassword" class="col-sm-3 col-form-label">New Password*</label>
               <div class="col-sm-9 col-sm-offset-3">
                 <input type="password" id="newPassword" name="newPassword" value=""
@@ -122,7 +140,8 @@
 
   <%- include('../partials/js') %>
 
- 
+
+
 
 </body>
 

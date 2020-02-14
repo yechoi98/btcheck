@@ -29,7 +29,7 @@ int main(int argc, char **argv)
   flags = IREQ_CACHE_FLUSH;
 
   while(1) {
-
+gcc -o simplescan simplescan.c -lbluetooth
   dev_id = hci_get_route(NULL);
   sock = hci_open_dev( dev_id );
   if (dev_id < 0 || sock < 0) {
