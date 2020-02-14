@@ -1,21 +1,14 @@
 var express  = require('express');
 var router = express.Router();
-var Scan = require('../models/Scan');
-var User = require('../models/User');
+var Subject = require('../models/Subject');
 var util = require('../util');
 
 // Index
 router.get('/', util.isLoggedin, checkPermission ,function(req, res){
-  Scan.find({})
-    .sort({address:1})
-    .exec(function(err, scans){
-      if(err) return res.json(err);
-      User.find({})
-     .sort({username:1})
-     .exec(function(err, users){
-      if(err) return res.json(err);
-      res.render('professor/datatable', {users:users, scans:scans});
-      });
+  Subject.find({})
+    .exec(function(err, subjects){
+      if(err) return res.json(err);     
+      res.render('professor/datatable', {subjects:subjects});   
     });
 });
 

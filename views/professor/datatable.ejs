@@ -30,6 +30,8 @@
     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
     <p class="mb-4">과목, 날짜를 선택하고 확인 버튼을 누르면 아래에 출석부가 표시됩니다</a>.</p>
 
+
+
     <!-- SelectBox -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -37,20 +39,18 @@
       </div>
       <div class="card-body text-center">
         <div class="my-2"></div>
-        <select class="browser-default custom-select">
+        <select name="subjectSelect" id="subjectSelect" onchange="changeDates(this)" class="browser-default custom-select">
           <option selected>과목을 선택하세요</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <% subjects.forEach(function(subject){ %>
+            <option><%= subject.subject %></option>
+            <!-- hidden -->
+            <option id='variableJSON' hidden><%= JSON.stringify(subject); %></option>
+          <% }) %>
         </select>
+
         <div class="my-2"></div>
-        <select class="browser-default custom-select">
+        <select name="dateSelect" id="dateSelect" class="browser-default custom-select">
           <option selected>날짜를 선택하세요</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
         </select>
 
         <div class="my-2"></div>
@@ -91,23 +91,7 @@
               </tr>
             </tfoot>
             <tbody>
-
-              <% if(users == null || users.length == 0){ %>
-                <tr>
-                  <td>There is no user yet.</td>
-                </tr>
-              <% } %>
-
-              <% users.forEach(function(user) { %>
-              <tr>
-                <td><input type="checkbox" name="chk[]"/></td>
-                <td><%= user.name %></td>
-                <td><%= user.username %></td>
-                <td> - </td>
-                <td><%chkAtd(user, scans)%></td>
-              </tr>
-              <% }) %>
-              
+ 
             </tbody>
           </table>
         </div>
