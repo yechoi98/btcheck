@@ -103,19 +103,40 @@ function saveResults(_subject, compareTime){
   
 }
 
+function restUsers(results, users){
+  users.forEach(function(user){
+    results.forEach(function(result){
+      if(user.username == result.username){
+        break;
+      }
+      
+    })
+
+  })
+
+}
+
 Subject.find({})
   .exec(function(err, subjects){
     if(err) return res.json(err);     
-    subjects.forEach(function(subject){
-      for(var i=0; i<subject.dates.length; i++){
-        var s =schedule.scheduleJob(subject.dates[i], function(){
+    subjects.forEach(function(_subject){
+      for(var i=0; i<_subject.dates.length; i++){
+        var s =schedule.scheduleJob(_subject.dates[i], function(){
           exec("./test", function() { 
-          var save=setInterval(saveResults(subject.subject, subject.dates[i]),3000) // scans로부터 출결 결과를 results에 저장
-          var d=subject.dates[i]
-          d.setMinutes(d.getMinutes()+30) // setInterval 종료 시각 : scanning 시작 30분 후
-          schedule.scheduleJob(d, function(){
-            clearInterval(save)
-            restUsers()
+          var save=setInterval(saveResults(_subject.subject, _subject.dates[i]),1000) // scans로부터 출결 결과를 results에 저장
+          var d=_subject.dates[i]
+          d.setMinutes(d.getMinutes()+31) 
+          schedule.scheduleJob(d, function(){ // c코드 실행 31분 후 스케줄
+            clearInterval(save) // setInterval(saveResults,1000) 종료
+            Result.find().all({subject:_subject.subject},{date:_subject.dates[i]}) 
+              .exec(function(err, results){
+                if(err) return res.json(err);
+                User.find({subject:_subject.subject})
+                .exec(function(err, users){
+                  if(err) return res.json(err);
+                  restUsers(results, users) // 30분 동안 스캔되지 않은 나머지 학생들을 결석시킴
+                })
+              })
           }) 
           });  
         })
