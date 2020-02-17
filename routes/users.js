@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var Subject = require('../models/Subject');
 var util = require('../util');
 
 // Index
@@ -49,15 +50,19 @@ router.get('/:username', util.isLoggedin, checkPermission, function(req, res){
 router.get('/:username/edit', util.isLoggedin, checkPermission, function(req, res){
   var user = req.flash('user')[0];
   var errors = req.flash('errors')[0] || {};
-  if(!user){
-    User.findOne({username:req.params.username}, function(err, user){
-      if(err) return res.json(err);
-      res.render('users/edit', { username:req.params.username, user:user, errors:errors });
-    });
-  }
-  else {
-    res.render('users/edit', { username:req.params.username, user:user, errors:errors });
-  }
+  Subject.find({})
+  .exec(function(err, subjects){
+    if(err) return res.json(err);
+    if(!user){
+      User.findOne({username:req.params.username}, function(err, user){
+        if(err) return res.json(err);
+        res.render('users/edit', { username:req.params.username, user:user, errors:errors, subjects:subjects });
+      });
+    }
+    else {
+      res.render('users/edit', { username:req.params.username, user:user, errors:errors, subjects:subjects });
+    }
+  })
 });
 
 // update
