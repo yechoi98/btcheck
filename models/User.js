@@ -26,10 +26,7 @@ var userSchema = mongoose.Schema({
     type: String,
     required: [true, 'Job is required!']
   },
-  subject: {
-    type: String,
-    default: "수정바람"
-  },
+  subject: [String],
   macAddress: {
     type: String,
     required: [true, 'Address is required!'],

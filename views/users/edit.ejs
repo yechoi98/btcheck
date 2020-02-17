@@ -27,6 +27,12 @@
 
           <h3 class="mb-3">Edit User</h3>
 
+
+
+
+
+
+
           <form action="/users/<%= username %>?_method=put" method="post">
 
             <div class="form-group row">
@@ -62,6 +68,18 @@
                 <% if(errors.name){ %>
                 <span class="invalid-feedback"><%= errors.name.message %></span>
                 <% } %>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="subject" class="col-sm-3 col-form-label">Subject</label>
+              <div class="col-sm-9">
+                <input type='checkbox' id='subject' name='subject[]' value=''> 선택없음</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='알고리즘'> 알고리즘</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='자바'> 자바</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='운영체제'> 운영체제</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='네트워크'> 네트워크</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='컴퓨터구조'> 컴퓨터구조</input>
               </div>
             </div>
 
@@ -122,7 +140,6 @@
 
   <%- include('../partials/js') %>
 
- 
 
 </body>
 
