@@ -32,7 +32,7 @@
 
     <!-- hidden -->
     <option id='subjectsJSON' hidden><%= JSON.stringify(subjects); %></option>
-    <option id='resultsJSON' hidden><%= JSON.stringify(results); %></option>
+    <option id='subjectSelected' hidden></option>
 
     <!-- SelectBox -->
     <div class="card shadow mb-4">
@@ -41,26 +41,28 @@
       </div>
       <div class="card-body text-center">
         <div class="my-2"></div>
+
+        <form id="tableForm" action="/datatable/result" method="post">
         <select name="subjectSelect" id="subjectSelect" onchange="changeDates(this)" class="browser-default custom-select">
-          <option selected>과목을 선택하세요</option>
+          <option value="" selected>과목을 선택하세요</option>
           <% for(var i=0; i<currentUser.subject.length; i++){ %>
-            <option><%= currentUser.subject[i] %></option>
+            <option value="<%= currentUser.subject[i] %>"><%= currentUser.subject[i] %></option>
           <% } %>
         </select>
 
         <div class="my-2"></div>
         <select name="dateSelect" id="dateSelect" class="browser-default custom-select">
-          <option selected>날짜를 선택하세요</option>
+          <option value="" selected>날짜를 선택하세요</option>
         </select>
 
         <div class="my-2"></div>
-        <a href="#" onclick="printTable();" class="btn btn-primary btn-icon-split">
-          <span class="text">확인</span>
-        </a>
+        <input type="submit" value="확인" class="btn btn-primary"></input>
+      </form>
+
       </div>
     </div>
 
-
+  
     <!-- DataTales -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -87,7 +89,21 @@
                 <th>출석</th>
               </tr>
             </tfoot>
-            <tbody id="tablebody">  
+            <tbody id='tablebody'>
+              <% results.forEach(function(result) { %>
+                <% if(result.subject==subjectSelect && JSON.stringify(result.date) == dateSelect){%>
+                <tr>
+                  <td><input type="checkbox" name="chk[]"/></td>
+                  <td><%= result.name %></td>
+                  <td><%= result.username %></td>
+                  <% if(result.time == null){ %>
+                  <td> - </td>
+                  <% } else { %>
+                  <td><%= result.time.getFullYear()+'년'+(result.time.getMonth()+1)+'월'+result.time.getDate()+'일'+result.time.getHours()+'시'+result.time.getMinutes()+'분'+result.time.getSeconds()+'초' %></td>
+                  <% } %>
+                  <td><%= result.result %></td>
+                </tr>
+                <% }}) %>
             </tbody>
           </table>
         </div>

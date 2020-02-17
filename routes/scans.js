@@ -12,11 +12,22 @@ router.get('/', util.isLoggedin, checkPermission ,function(req, res){
       Result.find({})
       .exec(function(err, results){
         if(err) return res.json(err);
-        res.render('professor/datatable', {subjects:subjects, results:results});   
+        res.render('professor/datatable', {subjects:subjects, results:results, subjectSelect:null, dateSelect:null});   
       })
     });
 });
 
+router.post('/result', util.isLoggedin, checkPermission ,function(req, res){
+  Subject.find({})
+  .exec(function(err, subjects){
+    if(err) return res.json(err);     
+    Result.find({})
+    .exec(function(err, results){
+      if(err) return res.json(err);
+      res.render('professor/datatable', {subjects:subjects, results:results, subjectSelect:req.body.subjectSelect, dateSelect:req.body.dateSelect});   
+    })
+  });
+})
 
 module.exports = router;
 
