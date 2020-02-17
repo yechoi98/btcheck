@@ -45,7 +45,7 @@ function saveResults(_subject, compareTime){
   var tmp = compareTime;
   var inTime = tmp.setMinutes(tmp.getMinutes()+20); // 출석 인정
   var lateTime = tmp.setMinutes(tmp.getMinutes()+30); // 지각 인정
-  User.find().all([{subject:_subject},{job:"student"}])
+  User.find({subject:_subject, job:"student"})
   .exec(function(err, users){
     if(err) return res.json(err);
     Scan.find({})
@@ -54,7 +54,10 @@ function saveResults(_subject, compareTime){
         scans.forEach(function(scan){
           users.forEach(function(user){
             if(user.macAddress == scan.address){
-              if(scan.time<compareTime) break; // 다음 scan 검사
+              if(scan.time<compareTime) {
+                console.log('d')
+                //break;
+              } // 다음 scan 검사
               else if(scan.time<=inTime){ // 출석
                 Result.create({
                   name: user.name,
@@ -109,7 +112,7 @@ function restUsers(results, users, _date, _subject){
     results.forEach(function(result){
       if(user.username == result.username){
         isExist=true;
-        break;
+        //break;
       }  
     })
     if(isExist==true){ // results에 있으면
@@ -136,20 +139,21 @@ Subject.find({})
     if(err) return res.json(err);     
     subjects.forEach(function(_subject){
       for(var i=0; i<_subject.dates.length; i++){
-        var s =schedule.scheduleJob(_subject.dates[i], function(){
+        var _date = _subject.dates[i];
+        schedule.scheduleJob(_date, function(){
           exec("./test", function() { 
-          var save=setInterval(saveResults(_subject.subject, _subject.dates[i]),1000) // scans로부터 출결 결과를 results에 저장
-          var d=_subject.dates[i]
-          d.setMinutes(d.getMinutes()+31) 
+          var save= setInterval(() => saveResults(_subject.subject, _date), 1000) // scans로부터 출결 결과를 results에 저장
+          var d=_date;
+          d.setMinutes(d.getMinutes()+2) 
           schedule.scheduleJob(d, function(){ // c코드 실행 31분 후 스케줄
             clearInterval(save) // setInterval(saveResults,1000) 종료
-            Result.find().all({subject:_subject.subject},{date:_subject.dates[i]}) 
+            Result.find({subject:_subject.subject, date:_date})
               .exec(function(err, results){
                 if(err) return res.json(err);
-                User.find({subject:_subject.subject})
+                User.find({subject:_subject.subject, job:"student"})
                 .exec(function(err, users){
                   if(err) return res.json(err);
-                  restUsers(results, users, _subject.dates[i], _subject.subject) // 30분 동안 스캔되지 않은 나머지 학생들을 결석시킴
+                  restUsers(results, users, _date, _subject.subject) // 30분 동안 스캔되지 않은 나머지 학생들을 결석시킴
                 })
               })
           }) 
@@ -157,7 +161,7 @@ Subject.find({})
         })
       }
     })
-  })
+})
 
 
 // Custom Middlewares
