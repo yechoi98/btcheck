@@ -31,7 +31,8 @@
     <p class="mb-4">과목, 날짜를 선택하고 확인 버튼을 누르면 아래에 출석부가 표시됩니다</a>.</p>
 
     <!-- hidden -->
-    <option id='variableJSON' hidden><%= JSON.stringify(subjects); %></option>
+    <option id='subjectsJSON' hidden><%= JSON.stringify(subjects); %></option>
+    <option id='resultsJSON' hidden><%= JSON.stringify(results); %></option>
 
     <!-- SelectBox -->
     <div class="card shadow mb-4">
@@ -86,8 +87,7 @@
                 <th>출석</th>
               </tr>
             </tfoot>
-            <tbody>
- 
+            <tbody id="tablebody">  
             </tbody>
           </table>
         </div>
