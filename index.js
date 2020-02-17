@@ -1,10 +1,13 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var schedule = require('node-schedule');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('./config/passport');
+var Subject = require('./models/Subject');
+var exec = require('child_process').exec;
 var app = express();
 
 // DB setting
@@ -33,6 +36,21 @@ app.use(session({secret:'MySecret', resave:true, saveUninitialized:true}));
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Scheduling
+function puts(error, stdout, stderr) { console.log(stdout) }
+Subject.find({})
+  .exec(function(err, subjects){
+    if(err) return res.json(err);     
+    subjects.forEach(function(subject){
+      for(let i=0; i<subject.dates.length; i++){
+        schedule.scheduleJob(subject.dates[i], function(){
+          exec("./test", puts);
+        })
+      }
+    })
+  })
+
 
 // Custom Middlewares
 app.use(function(req,res,next){
