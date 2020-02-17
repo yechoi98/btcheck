@@ -27,6 +27,12 @@
 
           <h3 class="mb-3">Edit User</h3>
 
+
+
+
+
+
+
           <form action="/users/<%= username %>?_method=put" method="post">
 
             <div class="form-group row">
@@ -68,18 +74,12 @@
             <div class="form-group row">
               <label for="subject" class="col-sm-3 col-form-label">Subject</label>
               <div class="col-sm-9">
-                <input type='checkbox' id='subject' name='subject_list[]' value=''> 선택없음</input>
-                <input type='checkbox' id='subject' name='subject_list[]' value='알고리즘'> 알고리즘</input>
-                <input type='checkbox' id='subject' name='subject_list[]' value='자바'> 자바</input>
-                <input type='checkbox' id='subject' name='subject_list[]' value='운영체제'> 운영체제</input>
-                <input type='checkbox' id='subject' name='subject_list[]' value='네트워크'> 네트워크</input>
-                <input type='checkbox' id='subject' name='subject_list[]' value='컴퓨터구조'> 컴퓨터구조</input>
-                
-                <!-- <input type="text" id="subject" name="subject" value="<%= user.subject %>"
-                  class="form-control <%= (errors.subject)?'is-invalid':'' %>">
-                <% if(errors.subject){ %>
-                <span class="invalid-feedback"><%= errors.subject.message %></span>
-                <% } %> -->
+                <input type='checkbox' id='subject' name='subject[]' value=''> 선택없음</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='알고리즘'> 알고리즘</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='자바'> 자바</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='운영체제'> 운영체제</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='네트워크'> 네트워크</input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value='컴퓨터구조'> 컴퓨터구조</input>
               </div>
             </div>
 
@@ -139,8 +139,6 @@
   <!-- End of Page Wrapper -->
 
   <%- include('../partials/js') %>
-
-
 
 
 </body>

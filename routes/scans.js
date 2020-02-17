@@ -1,16 +1,8 @@
 var express  = require('express');
 var router = express.Router();
-var Subject = require('../models/Subject');
 var util = require('../util');
 
-// Index
-router.get('/', util.isLoggedin, checkPermission ,function(req, res){
-  Subject.find({})
-    .exec(function(err, subjects){
-      if(err) return res.json(err);     
-      res.render('professor/datatable', {subjects:subjects});   
-    });
-});
+
 
 // New
 router.get('/new', function(req, res){
