@@ -55,7 +55,7 @@ function saveResults(_subject, compareTime){
           users.forEach(function(user){
             if(user.macAddress == scan.address){
               if(scan.time<compareTime) {
-                console.log('d')
+                console.log('현재 강의보다 이전인 스캔 데이터입니다.')
                 //break;
               } // 다음 scan 검사
               else if(scan.time<=inTime){ // 출석
@@ -142,10 +142,9 @@ Subject.find({})
         var _date = _subject.dates[i];
         schedule.scheduleJob(_date, function(){
           exec("./test", function() { 
-          var save= setInterval(() => saveResults(_subject.subject, _date), 1000) // scans로부터 출결 결과를 results에 저장
-          var d=_date;
-          d.setMinutes(d.getMinutes()+2) 
-          schedule.scheduleJob(d, function(){ // c코드 실행 31분 후 스케줄
+          var save= setInterval(() => saveResults(_subject.subject, _date), 100000) // scans로부터 출결 결과를 results에 저장
+          var endDate = new Date(_date.getTime() + 1*60000)
+          schedule.scheduleJob(endDate, function(){ // c코드 실행 31분 후 스케줄
             clearInterval(save) // setInterval(saveResults,1000) 종료
             Result.find({subject:_subject.subject, date:_date})
               .exec(function(err, results){
