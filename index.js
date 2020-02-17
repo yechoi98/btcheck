@@ -7,6 +7,8 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('./config/passport');
 var Subject = require('./models/Subject');
+var User = require('./models/User');
+var Scan = require('./models/Scan')
 var exec = require('child_process').exec;
 var app = express();
 
@@ -38,14 +40,22 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Scheduling
-function puts(error, stdout, stderr) { console.log(stdout) }
+function saveResults(subject, compareTime){
+
+}
+
 Subject.find({})
   .exec(function(err, subjects){
     if(err) return res.json(err);     
     subjects.forEach(function(subject){
       for(let i=0; i<subject.dates.length; i++){
-        schedule.scheduleJob(subject.dates[i], function(){
-          exec("./test", puts);
+        var s =schedule.scheduleJob(subject.dates[i], function(){
+          exec("./test", function() { 
+          var save=setInterval(saveResults(subject.subject, subject.dates[i]),3000) // scans로부터 출결 결과를 results에 저장
+          var d=subject.dates[i]
+          d.setMinutes(d.getMinutes()+30) // setInterval 종료 시각 : scanning 시작 30분 후
+          schedule.scheduleJob(d, function(){clearInterval(save)}) // results 저장 종료 
+          });  
         })
       }
     })
