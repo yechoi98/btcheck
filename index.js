@@ -103,15 +103,30 @@ function saveResults(_subject, compareTime){
   
 }
 
-function restUsers(results, users){
+function restUsers(results, users, _date, _subject){
+  var isExist = false;
   users.forEach(function(user){
     results.forEach(function(result){
       if(user.username == result.username){
+        isExist=true;
         break;
-      }
-      
+      }  
     })
-
+    if(isExist==true){ // results에 있으면
+      isExist=false;
+    }
+    else{ // user가 results에 없으면
+      Result.create({
+        name: user.name,
+        username:user.username, 
+        subject:_subject,
+        date:_date, 
+        result:"결석",
+      }, function(err, result){
+        if(err) return res.json(err);
+        console.log(result);
+      });
+    }
   })
 
 }
@@ -134,7 +149,7 @@ Subject.find({})
                 User.find({subject:_subject.subject})
                 .exec(function(err, users){
                   if(err) return res.json(err);
-                  restUsers(results, users) // 30분 동안 스캔되지 않은 나머지 학생들을 결석시킴
+                  restUsers(results, users, _subject.dates[i], _subject.subject) // 30분 동안 스캔되지 않은 나머지 학생들을 결석시킴
                 })
               })
           }) 
