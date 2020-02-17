@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 // schema
 var resultSchema = mongoose.Schema({
+  name:{type:String},
   username:{type:String}, //누가
   subject:{type:String}, //어떤 과목을
   date:{type:Date}, //언제

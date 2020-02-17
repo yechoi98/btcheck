@@ -57,11 +57,11 @@
 
                   <div class="form-group">
                   <div class="form-check form-check-inline">
-                    <input type="radio" name="job" id="radioStudent" value="student" class="form-check-input <%= (errors.job)?'is-invalid':'' %>">
+                    <input type="radio" name="job" id="radioStudent" value="student" class="form-check-input <%= (errors.job)?'is-invalid':'' %>" required>
                     <label class="form-check-label" for="radio1">I'm a student</label>
                   </div>
                   <div class="form-check form-check-inline <%= (errors.job)?'is-invalid':'' %>">
-                    <input type="radio" name="job" id="radioProfessor" value="professor" class="form-check-input" >
+                    <input type="radio" name="job" id="radioProfessor" value="professor" class="form-check-input" required>
                     <label class="form-check-label" for="radio2">I'm a professor</label>
                   </div>
                   <% if(errors.job){ %>

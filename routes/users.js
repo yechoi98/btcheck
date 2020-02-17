@@ -29,6 +29,7 @@ router.get('/macinfo',function(req,res){
 // create
 router.post('/', function(req, res){
   User.create(req.body, function(err, user){
+    console.log(req.body)
     if(err){
       req.flash('user', req.body);
       req.flash('errors', util.parseError(err));

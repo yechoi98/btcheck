@@ -8,7 +8,8 @@ var session = require('express-session');
 var passport = require('./config/passport');
 var Subject = require('./models/Subject');
 var User = require('./models/User');
-var Scan = require('./models/Scan')
+var Scan = require('./models/Scan');
+var Result = require('./models/Result')
 var exec = require('child_process').exec;
 var app = express();
 
@@ -40,21 +41,82 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Scheduling
-function saveResults(subject, compareTime){
+function saveResults(_subject, compareTime){
+  var tmp = compareTime;
+  var inTime = tmp.setMinutes(tmp.getMinutes()+20); // 출석 인정
+  var lateTime = tmp.setMinutes(tmp.getMinutes()+30); // 지각 인정
+  User.find().all([{subject:_subject},{job:"student"}])
+  .exec(function(err, users){
+    if(err) return res.json(err);
+    Scan.find({})
+      .exec(function(err, scans){
+        if(err) return res.json(err);
+        scans.forEach(function(scan){
+          users.forEach(function(user){
+            if(user.macAddress == scan.address){
+              if(scan.time<compareTime) break; // 다음 scan 검사
+              else if(scan.time<=inTime){ // 출석
+                Result.create({
+                  name: user.name,
+                  username:user.username, 
+                  subject:_subject,
+                  date:compareTime,
+                  time:scan.time, 
+                  result:"출석",
+                }, function(err, result){
+                  if(err) return res.json(err);
+                  console.log(result);
+                });
+              }
+              else if(scan.time<=lateTime){ // 지각
+                Result.create({
+                  name: user.name,
+                  username:user.username, 
+                  subject:_subject,
+                  date:compareTime,
+                  time:scan.time, 
+                  result:"지각",
+                }, function(err, result){
+                  if(err) return res.json(err);
+                  console.log(result);
+                });
+              }
+              else { // 결석
+                Result.create({
+                  name: user.name,
+                  username:user.username, 
+                  subject:_subject,
+                  date:compareTime,
+                  time:scan.time, 
+                  result:"결석",
+                }, function(err, result){
+                  if(err) return res.json(err);
+                  console.log(result);
+                });
+              }
+            }
+          })
+        })
+      })
+  });
 
+  
 }
 
 Subject.find({})
   .exec(function(err, subjects){
     if(err) return res.json(err);     
     subjects.forEach(function(subject){
-      for(let i=0; i<subject.dates.length; i++){
+      for(var i=0; i<subject.dates.length; i++){
         var s =schedule.scheduleJob(subject.dates[i], function(){
           exec("./test", function() { 
           var save=setInterval(saveResults(subject.subject, subject.dates[i]),3000) // scans로부터 출결 결과를 results에 저장
           var d=subject.dates[i]
           d.setMinutes(d.getMinutes()+30) // setInterval 종료 시각 : scanning 시작 30분 후
-          schedule.scheduleJob(d, function(){clearInterval(save)}) // results 저장 종료 
+          schedule.scheduleJob(d, function(){
+            clearInterval(save)
+            restUsers()
+          }) 
           });  
         })
       }
