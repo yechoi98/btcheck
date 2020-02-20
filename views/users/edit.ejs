@@ -75,7 +75,7 @@
               <label for="subject" class="col-sm-3 col-form-label">Subject</label>
               <div class="col-sm-9">
                 <% subjects.forEach(function(subject) { %>
-                <input type='checkbox' id='subject' name='subject[]' value= <%= subject.subject %> > <%= subject.subject %></input> &nbsp&nbsp
+                <input type='checkbox' id='subject' name='subject[]' value= <%= subject.subject %>  <%= user.subject.includes(subject.subject)? "checked" : ""%> > <%= subject.subject %></input> 
                 <% }) %>
               </div>
             </div>

@@ -43,8 +43,8 @@ app.use(passport.session());
 // Scheduling
 function saveResults(_subject, compareTime){
   var tmp = compareTime;
-  var inTime = tmp.setMinutes(tmp.getMinutes()+20); // 출석 인정
-  var lateTime = tmp.setMinutes(tmp.getMinutes()+30); // 지각 인정
+  var inTime = tmp.setMinutes(tmp.getMinutes()+1); // 출석 인정
+  var lateTime = tmp.setMinutes(tmp.getMinutes()+3); // 지각 인정
   User.find({subject:_subject, job:"student"})
   .exec(function(err, users){
     if(err) return res.json(err);
@@ -141,9 +141,9 @@ Subject.find({})
       for(var i=0; i<_subject.dates.length; i++){
         var _date = _subject.dates[i];
         schedule.scheduleJob(_date, function(){
-          exec("./test", function() { 
-          var save= setInterval(() => saveResults(_subject.subject, _date), 100000) // scans로부터 출결 결과를 results에 저장
-          var endDate = new Date(_date.getTime() + 1*60000)
+          exec("./testscan", function() { 
+          var save= setInterval(() => saveResults(_subject.subject, _date), 1000) // scans로부터 출결 결과를 results에 저장
+          var endDate = new Date(_date.getTime() + 5*60000) // 31
           schedule.scheduleJob(endDate, function(){ // c코드 실행 31분 후 스케줄
             clearInterval(save) // setInterval(saveResults,1000) 종료
             Result.find({subject:_subject.subject, date:_date})
