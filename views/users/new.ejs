@@ -21,7 +21,7 @@
                 </div>
                 <form class="user" action="/users" method="post">
                     <div class="form-group">
-                      <input type="text" id="name" name="name"  value="<%= user.name %>"  class="form-control form-control-user" placeholder="Name" required autofocus>
+                      <input type="text" id="name" name="name" value="<%= user.name %>"  class="form-control form-control-user <%= (errors.name)?'is-invalid':'' %>" placeholder="Name" required autofocus>
                       <% if(errors.name){ %>
                         <span class="invalid-feedback"><%= errors.name.message %></span>
                       <% } %>

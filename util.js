@@ -1,7 +1,6 @@
 var util = {};
 
 util.parseError = function(errors){
-  console.log("errors: ", errors)
   var parsed = {};
   if(errors.name == 'ValidationError'){
     for(var name in errors.errors){
@@ -13,7 +12,7 @@ util.parseError = function(errors){
     parsed.username = { message:'This username already exists!' };
   }
   else if(errors.code == '11000' && errors.errmsg.indexOf('macAddress') > 0){
-    parsed.macAddress = { message:'This Mac Address is already exists! '};
+    parsed.macAddress = { message:'This Mac Address is already exists!' }
   }
   else {
     parsed.unhandled = JSON.stringify(errors);
