@@ -6,7 +6,7 @@
   <% include('../partials/function') %> 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="changeDates(subjectSelect)">
     
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -32,7 +32,7 @@
 
     <!-- hidden -->
     <option id='subjectsJSON' hidden><%= JSON.stringify(subjects); %></option>
-    <option id='subjectSelected' hidden></option>
+    <option id='dateSelected' hidden><%= JSON.stringify(dateSelect); %></option>
 
     <!-- SelectBox -->
     <div class="card shadow mb-4">
@@ -52,11 +52,7 @@
 
         <div class="my-2"></div>
         <select name="dateSelect" id="dateSelect" class="browser-default custom-select">
-          <% if (dateSelect == "null") { %> 
-          <option value="null" selected>날짜를 선택하세요</option>
-          <% } else { %> 
-            <option value="<%=  dateSelect %>" selected> <%= formatDate(dateSelect) %> </option>
-          <% } %>
+          // changeDates(obj) 함수에 의해 option이 동적으로 추가된다.
         </select>
 
         <div class="my-2"></div>
