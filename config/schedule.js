@@ -1,8 +1,7 @@
 var schedule = require('node-schedule');
 var Subject = require('../models/Subject');
 var User = require('../models/User');
-var rule = new schedule.RecurrenceRule();
-
+const addon = require('./build/Release/module');
 
 function scheduleSubjects(){
 
@@ -15,7 +14,9 @@ Subject.find(function(err, subjects){
             let endTime = new Date(date); 
             endTime.setMinutes(endTime.getMinutes()+subject.duration)// N분 후 스케줄 종료
             var j = schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/5 * * * *' }, function(){ // 5분마다 반복
-              console.log(new Date().getMinutes(), new Date().getSeconds());
+              console.log(new Date().getHours(),'시', new Date().getMinutes(),'분', new Date().getSeconds(),'초', 'scanning start!');
+                addon.scanBluetoothDevices() // 3초 간 스캔
+                
             });
         })
     })
