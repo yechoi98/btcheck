@@ -9,9 +9,9 @@ DEFS_Debug := \
 	'-DV8_DEPRECATION_WARNINGS=1' \
 	'-DV8_DEPRECATION_WARNINGS' \
 	'-DV8_IMMINENT_DEPRECATION_WARNINGS' \
-	'-D_DARWIN_USE_64_BIT_INODE=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
+	'-D__STDC_FORMAT_MACROS' \
 	'-DOPENSSL_NO_PINSHARED' \
 	'-DOPENSSL_THREADS' \
 	'-DBUILDING_NODE_EXTENSION' \
@@ -21,41 +21,33 @@ DEFS_Debug := \
 
 # Flags passed to all source files.
 CFLAGS_Debug := \
-	-O0 \
-	-gdwarf-2 \
-	-mmacosx-version-min=10.10 \
-	-arch x86_64 \
+	-fPIC \
+	-pthread \
 	-Wall \
-	-Wendif-labels \
-	-W \
-	-Wno-unused-parameter
+	-Wextra \
+	-Wno-unused-parameter \
+	-g \
+	-O0
 
 # Flags passed to only C files.
-CFLAGS_C_Debug := \
-	-fno-strict-aliasing
+CFLAGS_C_Debug :=
 
 # Flags passed to only C++ files.
 CFLAGS_CC_Debug := \
-	-std=gnu++1y \
-	-stdlib=libc++ \
 	-fno-rtti \
 	-fno-exceptions \
-	-fno-strict-aliasing
-
-# Flags passed to only ObjC files.
-CFLAGS_OBJC_Debug :=
-
-# Flags passed to only ObjC++ files.
-CFLAGS_OBJCC_Debug :=
+	-std=gnu++1y
 
 INCS_Debug := \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/include/node \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/src \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/openssl/config \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/openssl/openssl/include \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/uv/include \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/zlib \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/v8/include
+	-I/home/pi/.cache/node-gyp/12.16.1/include/node \
+	-I/home/pi/.cache/node-gyp/12.16.1/src \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/openssl/config \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/openssl/openssl/include \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/uv/include \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/zlib \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/v8/include \
+	-I/usr/local/mongo-c-driver-1.15.3/src/libmongoc/src \
+	-I/usr/local/mongo-c-driver-1.15.3/src/libbson/src
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=native' \
@@ -64,50 +56,42 @@ DEFS_Release := \
 	'-DV8_DEPRECATION_WARNINGS=1' \
 	'-DV8_DEPRECATION_WARNINGS' \
 	'-DV8_IMMINENT_DEPRECATION_WARNINGS' \
-	'-D_DARWIN_USE_64_BIT_INODE=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
+	'-D__STDC_FORMAT_MACROS' \
 	'-DOPENSSL_NO_PINSHARED' \
 	'-DOPENSSL_THREADS' \
 	'-DBUILDING_NODE_EXTENSION'
 
 # Flags passed to all source files.
 CFLAGS_Release := \
-	-Os \
-	-gdwarf-2 \
-	-mmacosx-version-min=10.10 \
-	-arch x86_64 \
+	-fPIC \
+	-pthread \
 	-Wall \
-	-Wendif-labels \
-	-W \
-	-Wno-unused-parameter
+	-Wextra \
+	-Wno-unused-parameter \
+	-O3 \
+	-fno-omit-frame-pointer
 
 # Flags passed to only C files.
-CFLAGS_C_Release := \
-	-fno-strict-aliasing
+CFLAGS_C_Release :=
 
 # Flags passed to only C++ files.
 CFLAGS_CC_Release := \
-	-std=gnu++1y \
-	-stdlib=libc++ \
 	-fno-rtti \
 	-fno-exceptions \
-	-fno-strict-aliasing
-
-# Flags passed to only ObjC files.
-CFLAGS_OBJC_Release :=
-
-# Flags passed to only ObjC++ files.
-CFLAGS_OBJCC_Release :=
+	-std=gnu++1y
 
 INCS_Release := \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/include/node \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/src \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/openssl/config \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/openssl/openssl/include \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/uv/include \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/zlib \
-	-I/Users/home/Library/Caches/node-gyp/13.5.0/deps/v8/include
+	-I/home/pi/.cache/node-gyp/12.16.1/include/node \
+	-I/home/pi/.cache/node-gyp/12.16.1/src \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/openssl/config \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/openssl/openssl/include \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/uv/include \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/zlib \
+	-I/home/pi/.cache/node-gyp/12.16.1/deps/v8/include \
+	-I/usr/local/mongo-c-driver-1.15.3/src/libmongoc/src \
+	-I/usr/local/mongo-c-driver-1.15.3/src/libbson/src
 
 OBJS := \
 	$(obj).target/$(TARGET)/src/scan.o
@@ -120,8 +104,6 @@ all_deps += $(OBJS)
 $(OBJS): TOOLSET := $(TOOLSET)
 $(OBJS): GYP_CFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(BUILDTYPE)) $(CFLAGS_C_$(BUILDTYPE))
 $(OBJS): GYP_CXXFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(BUILDTYPE)) $(CFLAGS_CC_$(BUILDTYPE))
-$(OBJS): GYP_OBJCFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(BUILDTYPE)) $(CFLAGS_C_$(BUILDTYPE)) $(CFLAGS_OBJC_$(BUILDTYPE))
-$(OBJS): GYP_OBJCXXFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(BUILDTYPE)) $(CFLAGS_CC_$(BUILDTYPE)) $(CFLAGS_OBJCC_$(BUILDTYPE))
 
 # Suffix rules, putting all outputs into $(obj).
 
@@ -139,50 +121,35 @@ $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.c FORCE_DO_CMD
 # End of this set of suffix rules
 ### Rules for final target.
 LDFLAGS_Debug := \
-	-undefined dynamic_lookup \
-	-Wl,-no_pie \
-	-Wl,-search_paths_first \
-	-mmacosx-version-min=10.10 \
-	-arch x86_64 \
-	-L$(builddir) \
-	-stdlib=libc++
-
-LIBTOOLFLAGS_Debug := \
-	-undefined dynamic_lookup \
-	-Wl,-no_pie \
-	-Wl,-search_paths_first
+	-pthread \
+	-rdynamic
 
 LDFLAGS_Release := \
-	-undefined dynamic_lookup \
-	-Wl,-no_pie \
-	-Wl,-search_paths_first \
-	-mmacosx-version-min=10.10 \
-	-arch x86_64 \
-	-L$(builddir) \
-	-stdlib=libc++
-
-LIBTOOLFLAGS_Release := \
-	-undefined dynamic_lookup \
-	-Wl,-no_pie \
-	-Wl,-search_paths_first
+	-pthread \
+	-rdynamic
 
 LIBS :=
 
-$(builddir)/native.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
-$(builddir)/native.node: LIBS := $(LIBS)
-$(builddir)/native.node: GYP_LIBTOOLFLAGS := $(LIBTOOLFLAGS_$(BUILDTYPE))
-$(builddir)/native.node: TOOLSET := $(TOOLSET)
-$(builddir)/native.node: $(OBJS) FORCE_DO_CMD
+$(obj).target/native.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
+$(obj).target/native.node: LIBS := $(LIBS)
+$(obj).target/native.node: TOOLSET := $(TOOLSET)
+$(obj).target/native.node: $(OBJS) FORCE_DO_CMD
 	$(call do_cmd,solink_module)
 
-all_deps += $(builddir)/native.node
+all_deps += $(obj).target/native.node
 # Add target alias
 .PHONY: native
 native: $(builddir)/native.node
 
+# Copy this to the executable output path.
+$(builddir)/native.node: TOOLSET := $(TOOLSET)
+$(builddir)/native.node: $(obj).target/native.node FORCE_DO_CMD
+	$(call do_cmd,copy)
+
+all_deps += $(builddir)/native.node
 # Short alias for building this executable.
 .PHONY: native.node
-native.node: $(builddir)/native.node
+native.node: $(obj).target/native.node $(builddir)/native.node
 
 # Add executable to "all" target.
 .PHONY: all
