@@ -52,7 +52,7 @@ app.use('/datatable', require('./routes/scans'));
 app.use('/users', require('./routes/users'));
 
 // Port setting
-var port = 3000;
+var port = 30000;
 app.listen(port, function(){
   console.log('server on! http://localhost:'+port);
 });
