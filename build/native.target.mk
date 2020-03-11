@@ -46,8 +46,9 @@ INCS_Debug := \
 	-I/home/pi/.cache/node-gyp/12.16.1/deps/uv/include \
 	-I/home/pi/.cache/node-gyp/12.16.1/deps/zlib \
 	-I/home/pi/.cache/node-gyp/12.16.1/deps/v8/include \
-	-I/usr/local/mongo-c-driver-1.15.3/src/libmongoc/src \
-	-I/usr/local/mongo-c-driver-1.15.3/src/libbson/src
+	-I/usr/local/include/libmongoc-1.0 \
+	-I/usr/local/include/libbson-1.0/bson \
+	-I/usr/local/include/libbson-1.0
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=native' \
@@ -90,8 +91,9 @@ INCS_Release := \
 	-I/home/pi/.cache/node-gyp/12.16.1/deps/uv/include \
 	-I/home/pi/.cache/node-gyp/12.16.1/deps/zlib \
 	-I/home/pi/.cache/node-gyp/12.16.1/deps/v8/include \
-	-I/usr/local/mongo-c-driver-1.15.3/src/libmongoc/src \
-	-I/usr/local/mongo-c-driver-1.15.3/src/libbson/src
+	-I/usr/local/include/libmongoc-1.0 \
+	-I/usr/local/include/libbson-1.0/bson \
+	-I/usr/local/include/libbson-1.0
 
 OBJS := \
 	$(obj).target/$(TARGET)/src/scan.o
@@ -128,7 +130,12 @@ LDFLAGS_Release := \
 	-pthread \
 	-rdynamic
 
-LIBS :=
+LIBS := \
+	/usr/include/bluetooth/bluetooth.h \
+	/usr/include/bluetooth/hci.h \
+	/usr/include/bluetooth/hci_lib.h \
+	/usr/local/lib/libbson-1.0.so \
+	/usr/local/lib/libmongoc-1.0.so
 
 $(obj).target/native.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(obj).target/native.node: LIBS := $(LIBS)

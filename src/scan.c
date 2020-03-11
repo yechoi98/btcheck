@@ -15,7 +15,6 @@ void scanBluetoothDevices(napi_env env, napi_callback_info info){
 	int max_rsp, num_rsp;
 	int dev_id, sock, len, flags;
 	char addr[19] = { 0 };
-	char* str;
 	bson_t* document;
 	mongoc_client_t* client;
 	mongoc_collection_t* collection;
