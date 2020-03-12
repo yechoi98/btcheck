@@ -48,7 +48,8 @@ INCS_Debug := \
 	-I/home/pi/.cache/node-gyp/12.16.1/deps/v8/include \
 	-I/usr/local/include/libmongoc-1.0 \
 	-I/usr/local/include/libbson-1.0/bson \
-	-I/usr/local/include/libbson-1.0
+	-I/usr/local/include/libbson-1.0 \
+	-I/usr/include/bluetooth
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=native' \
@@ -93,7 +94,8 @@ INCS_Release := \
 	-I/home/pi/.cache/node-gyp/12.16.1/deps/v8/include \
 	-I/usr/local/include/libmongoc-1.0 \
 	-I/usr/local/include/libbson-1.0/bson \
-	-I/usr/local/include/libbson-1.0
+	-I/usr/local/include/libbson-1.0 \
+	-I/usr/include/bluetooth
 
 OBJS := \
 	$(obj).target/$(TARGET)/src/scan.o
@@ -131,9 +133,7 @@ LDFLAGS_Release := \
 	-rdynamic
 
 LIBS := \
-	/usr/include/bluetooth/bluetooth.h \
-	/usr/include/bluetooth/hci.h \
-	/usr/include/bluetooth/hci_lib.h \
+	/usr/lib/arm-linux-gnueabihf/libbluetooth.a \
 	/usr/local/lib/libbson-1.0.so \
 	/usr/local/lib/libmongoc-1.0.so
 

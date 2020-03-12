@@ -7,10 +7,8 @@
     "include_dirs": ["/usr/local/include/libmongoc-1.0",
       "/usr/local/include/libbson-1.0/bson",
       "/usr/local/include/libbson-1.0/",
-      "/usr/include/bluetooth/bluetooth.h", 
-      "/usr/include/bluetooth/hci.h", 
-      "/usr/include/bluetooth/hci_lib.h",
+      "/usr/include/bluetooth/", 
     ],
-    "libraries": ["/usr/local/lib/libbson-1.0.so", "/usr/local/lib/libmongoc-1.0.so"]
+    "libraries": ["/usr/lib/arm-linux-gnueabihf/libbluetooth.a","/usr/local/lib/libbson-1.0.so", "/usr/local/lib/libmongoc-1.0.so"]
   }]
 }
