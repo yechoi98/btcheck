@@ -6,7 +6,7 @@
   <% include('../partials/function') %> 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="changeDates(subjectSelect)">
     
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -32,7 +32,7 @@
 
     <!-- hidden -->
     <option id='subjectsJSON' hidden><%= JSON.stringify(subjects); %></option>
-    <option id='subjectSelected' hidden></option>
+    <option id='dateSelected' hidden><%= JSON.stringify(dateSelect); %></option>
 
     <!-- SelectBox -->
     <div class="card shadow mb-4">
@@ -44,15 +44,15 @@
 
         <form id="tableForm" action="/datatable/result" method="post">
         <select name="subjectSelect" id="subjectSelect" onchange="changeDates(this)" class="browser-default custom-select">
-          <option value="" selected>과목을 선택하세요</option>
+          <option value="">과목을 선택하세요</option>
           <% for(var i=0; i<currentUser.subject.length; i++){ %>
-            <option value="<%= currentUser.subject[i] %>"><%= currentUser.subject[i] %></option>
+            <option value="<%= currentUser.subject[i] %>" <%= (subjectSelect==currentUser.subject[i] )? "selected" : ""%> </option> <%= currentUser.subject[i] %> </option>
           <% } %>
         </select>
 
         <div class="my-2"></div>
         <select name="dateSelect" id="dateSelect" class="browser-default custom-select">
-          <option value="" selected>날짜를 선택하세요</option>
+          // changeDates(obj) 함수에 의해 option이 동적으로 추가된다.
         </select>
 
         <div class="my-2"></div>

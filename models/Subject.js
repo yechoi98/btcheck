@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var subjectSchema = mongoose.Schema({
   subject:{type:String},
   dates:[Date],
+  duration: {type:Number},
   professor:{type:String},
 });
 
