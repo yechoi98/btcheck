@@ -14,6 +14,7 @@ router.get('/', function(req, res){
     });
 });
 
+
 // New
 router.get('/new', function(req, res){
   var user = req.flash('user')[0] || {};
@@ -99,6 +100,14 @@ router.delete('/:username', function(req, res){
     res.redirect('/users');
   });
 });
+
+
+
+
+
+
+
+
 
 module.exports = router;
 

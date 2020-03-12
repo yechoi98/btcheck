@@ -174,6 +174,9 @@ app.use(function(req,res,next){
 app.use('/', require('./routes/home'));
 app.use('/datatable', require('./routes/scans'));
 app.use('/users', require('./routes/users'));
+app.use('/table', require('./routes/scan'));
+
+
 
 // Port setting
 var port = 3000;

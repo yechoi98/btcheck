@@ -56,6 +56,7 @@ router.get('/dashboard',function(req,res){
   res.render('home/dashboard')
 })
 
+
 // Logout
 router.get('/logout', function(req, res) {
   req.logout();
