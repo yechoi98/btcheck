@@ -11,7 +11,8 @@
 #include <sys/time.h>
 
 void scanBluetoothDevices(napi_env env, napi_callback_info info){
-    inquiry_info* ii = NULL;
+	prinf("C function start \n");
+    	inquiry_info* ii = NULL;
 	int max_rsp, num_rsp;
 	int dev_id, sock, len, flags;
 	char addr[19] = { 0 };
@@ -23,7 +24,7 @@ void scanBluetoothDevices(napi_env env, napi_callback_info info){
 	struct timeval tv;
 	unsigned long long millisecondsSinceEpoch;
 
-	len = 3; // 1.28*len초
+	len = 7; // 1.28*len초
 	max_rsp = 50;
 	flags = IREQ_CACHE_FLUSH;
 
@@ -57,7 +58,7 @@ void scanBluetoothDevices(napi_env env, napi_callback_info info){
 				fprintf(stderr, "%s\n", error.message);
 			}
 			bson_destroy(document);
-
+			printf("%s  %s\n", addr);
 		}
 
 		printf("bluetooth devices scanning finished.\n");
