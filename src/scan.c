@@ -10,8 +10,9 @@
 #include <bson/bson.h>
 #include <sys/time.h>
 
-void scanBluetoothDevices(napi_env env, napi_callback_info info){
+napi_value scanBluetoothDevices(napi_env env, napi_callback_info info){
 	printf("C function start \n");
+	napi_value nv=0;
     	inquiry_info* ii = NULL;
 	int max_rsp, num_rsp;
 	int dev_id, sock, len, flags;
@@ -69,7 +70,7 @@ void scanBluetoothDevices(napi_env env, napi_callback_info info){
 		free(ii);
 		close(sock);
 
-    return;
+    return nv;
 }
 
 napi_value Init(napi_env env, napi_value exports) {
