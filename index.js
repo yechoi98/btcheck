@@ -60,3 +60,7 @@ app.listen(port, function(){
   console.log('server on! http://localhost:'+port);
 });
 
+
+process.on('SIGTERM', function(err){
+server.close()
+})

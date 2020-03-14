@@ -11,7 +11,7 @@
 #include <sys/time.h>
 
 void scanBluetoothDevices(napi_env env, napi_callback_info info){
-	prinf("C function start \n");
+	printf("C function start \n");
     	inquiry_info* ii = NULL;
 	int max_rsp, num_rsp;
 	int dev_id, sock, len, flags;
@@ -58,7 +58,7 @@ void scanBluetoothDevices(napi_env env, napi_callback_info info){
 				fprintf(stderr, "%s\n", error.message);
 			}
 			bson_destroy(document);
-			printf("%s  %s\n", addr);
+			printf("%s \n", addr);
 		}
 
 		printf("bluetooth devices scanning finished.\n");
