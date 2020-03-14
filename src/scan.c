@@ -40,7 +40,7 @@ void scanBluetoothDevices(napi_env env, napi_callback_info info){
 		if (num_rsp < 0) perror("hci_inquiry");
 
 		mongoc_init();
-		client = mongoc_client_new("mongodb://yechoi:0000@192.168.1.13:27017/");
+		client = mongoc_client_new("mongodb://yechoi:0000@220.149.13.179:27017/admin");
 		collection = mongoc_client_get_collection(client, "btcheck", "scans");
 
 
