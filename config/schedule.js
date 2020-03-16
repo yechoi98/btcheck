@@ -1,7 +1,9 @@
-var Subject = require('../models/Subject');
-var cron = require('cron');
-var User = require('../models/User');
-const addon = require('../build/Release/native');
+var Subject = require('../models/Subject')
+var Result = require('../models/Result')
+var User = require('../models/User')
+var Scan = require('../models/Scan')
+var cron = require('cron')
+const addon = require('../build/Release/native')
 
 function scheduleSubjects() {
     Subject.find(function (err, subjects) {
@@ -15,9 +17,8 @@ function scheduleSubjects() {
 }
 
 function scheduleJob(date, subject){
-// 수업 시간은 5의 �수 
 	
-    const jobTrigger = new cron.CronJob({
+    const jobStart = new cron.CronJob({
 	    cronTime: new Date(new Date(date)-1000),
 	    onTick: function(){
 	    job.start()
@@ -31,15 +32,81 @@ function scheduleJob(date, subject){
    const job = new cron.CronJob({
 	   cronTime: '0 */5 * * * *',
 	   onTick: function(){
-           console.log(new Date())
+           console.log(new Date().toLocaleString())
 	   addon.scanBluetoothDevices()
+           compareAndSave(date, subject)
 	   },
 	   start: false,
 	   timeZone: 'Asia/Seoul'
 
    })
+
+   var endTime = new Date(new Date(date).getTime() + (subject.duration+1)*60000);
+   
+   const jobEnd = new cron.CronJob({
+	    cronTime: endTime,
+	    onTick: function(){
+	    job.stop()
+            console.log('schedule finished at', new Date().toLocaleString())
+	    },
+	    start: true,
+	    timeZone: 'Asia/Seoul'
+    })
 }
 
+function compareAndSave(date, subject){
+let users 
+let scans
+User.find(function(err, _users){
+if (err) return res.json(err)
+users=_users
+})
+Scan.find(function(err, _scans){
+if (err) return res.json(err)
+scans=_scans
+})
+console.log(users, scans)
+scans.forEach(function(scan){
+  users.forEach(function(user){
+    console.log('comparing start',typeof(scan.time), typeof(date))	  
+    if( (user.macAddress == scan.address) && ((date <= scan.time) && (date+subject.duration >= scan.time)) ) { // if MAC address matches and scanned time is between class start time and class end time.
+	    saveResult(date, subject, user, scan) 
+    }
+  })
+})	
+}
+
+function saveResult(_date, subject, user, scan){
+  Result.findOne({username:user.username, date:_date}, function(err, result){
+  if(err) res.json(err)
+  let i = 0
+  let startTime, endTime
+   for( ; i <= subject.duration; i=i+5) {
+     startTime = new Date(new Date(date).getTime() + i*60000) 
+     endTime = new Date(new Date(startTime).getTime()+1*60000)
+     if( (scan.time>=startTime)&&(scan.time<endTime) ){
+       if(result==null){
+      // create result 
+      Result.create({
+                  name: user.name,
+                  username:user.username, 
+                  subject:subject.subject,
+                  date:_date,
+                  results:{minutes:i, time:scan.time, result:"O"}, 
+                }, function(err, result){
+                  if(err) return res.json(err);
+       })
+      break
+      }
+      else {
+        result.results.push({minutes:i, time:scan.time, result:"O"})
+	result.save()
+        break
+      }
+     }
+   }
+  })
+}
 
 module.exports = scheduleSubjects;
 
