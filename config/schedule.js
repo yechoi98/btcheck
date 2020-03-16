@@ -55,25 +55,25 @@ function scheduleJob(date, subject){
 }
 
 function compareAndSave(date, subject){
-let users 
-let scans
+
 User.find(function(err, _users){
 if (err) return res.json(err)
-users=_users
-})
+let users = _users
 Scan.find(function(err, _scans){
 if (err) return res.json(err)
-scans=_scans
-})
-console.log(users, scans)
+let scans=_scans
 scans.forEach(function(scan){
   users.forEach(function(user){
-    console.log('comparing start',typeof(scan.time), typeof(date))	  
-    if( (user.macAddress == scan.address) && ((date <= scan.time) && (date+subject.duration >= scan.time)) ) { // if MAC address matches and scanned time is between class start time and class end time.
+     const startTime = new Date(date)
+     const scanTime = new Date(scan.time)
+     const endTime = new Date(new Date(startTime).getTime()+subject.duration*60000)
+    if((user.job == 'student') && (user.macAddress == scan.address) && ((startTime <= scanTime) && (endTime >= scanTime)) ) { // if MAC address matches and scanned time is between class start time and class end time.
 	    saveResult(date, subject, user, scan) 
     }
   })
 })	
+})
+})
 }
 
 function saveResult(_date, subject, user, scan){
@@ -82,7 +82,7 @@ function saveResult(_date, subject, user, scan){
   let i = 0
   let startTime, endTime
    for( ; i <= subject.duration; i=i+5) {
-     startTime = new Date(new Date(date).getTime() + i*60000) 
+     startTime = new Date(new Date(_date).getTime() + i*60000) 
      endTime = new Date(new Date(startTime).getTime()+1*60000)
      if( (scan.time>=startTime)&&(scan.time<endTime) ){
        if(result==null){
