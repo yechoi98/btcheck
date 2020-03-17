@@ -36,6 +36,7 @@ function scheduleJob(date, subject) {
             console.log(new Date().toLocaleString())
             addon.scanBluetoothDevices()
             compareAndSave(date, subject, min)
+	    restUsers(date, subject, min)
             min = min + 5
         },
         start: false,
@@ -78,7 +79,7 @@ function compareAndSave(date, subject, min) {
                                                 name: user.name,
                                                 username: user.username,
                                                 subject: subject.subject,
-                                                date: _date,
+                                                date: date,
                                                 results: {
                                                     minutes: min,
                                                     time: scan.time,
@@ -88,7 +89,6 @@ function compareAndSave(date, subject, min) {
                                                 if (err) return res.json(err);
                                                 console.log(result)
                                             })
-                                            break
                                         } 
                                         else {
                                             // update
@@ -99,7 +99,7 @@ function compareAndSave(date, subject, min) {
                                             })
                                             result.save()
                                             console.log(result)
-                                            break
+
                                         } // else
                                     }) // Result.findOne
                                 } // if
@@ -109,46 +109,56 @@ function compareAndSave(date, subject, min) {
     }) // Scan.find
 } // function
 
-function saveResult(_date, subject, user, scan) {
-    Result.findOne({
-        username: user.username,
-        date: _date
-    }, function (err, result) {
-        if (err) res.json(err)
-        let i = 0
-        let startTime, endTime
-        for (; i <= subject.duration; i = i + 5) {
-            startTime = new Date(new Date(_date).getTime() + i * 60000)
-            endTime = new Date(new Date(startTime).getTime() + 1 * 60000)
-            if ((scan.time >= startTime) && (scan.time < endTime)) {
-                if (result == null) {
-                    // create result 
-                    Result.create({
-                        name: user.name,
-                        username: user.username,
-                        subject: subject.subject,
-                        date: _date,
-                        results: {
-                            minutes: i,
-                            time: scan.time,
-                            result: "O"
-                        },
-                    }, function (err, result) {
-                        if (err) return res.json(err);
-                    })
-                    break
-                } else {
-                    result.results.push({
-                        minutes: i,
-                        time: scan.time,
-                        result: "O"
-                    })
-                    result.save()
-                    break
-                }
-            }
-        }
-    })
+
+function restUsers(date, subject, min){
+  User.find(function(err, users){
+    for(let i=0; i<users.length; i++){
+      const user = users[i]
+      Result.findOne({
+	      username: user.username,
+	      date: date
+      }, function (err, result) {
+        if (result == null) {
+	
+                                            // create
+                                            Result.create({
+                                                name: user.name,
+                                                username: user.username,
+                                                subject: subject.subject,
+                                                date: date,
+                                                results: {
+                                                    minutes: min,
+                                                    time: null,
+                                                    result: "X"
+                                                },
+                                            }, function (err, result) {
+                                                if (err) return res.json(err);
+                                                console.log(result)
+                                            })
+	}
+	else { 
+		let isExist = false
+		for(let i=0; i<result.results.length; i++){
+		  if(result.results[i].minutes == min) {isExist = true}
+		}
+		if(isExist == false) {
+		  // update
+                                            result.results.push({
+                                                minutes: min,
+                                                time: null,
+                                                result: "X"
+                                            })
+                                            result.save()
+                                            console.log(result)
+
+		
+		}
+	}
+      
+      })
+    }
+  })
+
 }
 
 module.exports = scheduleSubjects;
