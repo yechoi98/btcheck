@@ -64,10 +64,10 @@ function compareAndSave(date, subject, min) {
             if (err) res.json(err)
             scans.forEach(function (scan) {
                     let scanTime = new Date(scan.time)
-                    User.find(function (err, users) {
+                    User.find({job:'student'},function (err, users) {
                             if (err) res.json(err)
                             users.forEach(function (user) {
-                                if ((user.job == 'student') && (user.macAddress == scan.address) && ((startTime <= scanTime) && (endTime >= scanTime))) {
+                                if ((user.macAddress == scan.address) && ((startTime <= scanTime) && (endTime >= scanTime))) {
                                     Result.findOne({
                                         username: user.username,
                                         date: date
@@ -111,7 +111,7 @@ function compareAndSave(date, subject, min) {
 
 
 function restUsers(date, subject, min){
-  User.find(function(err, users){
+  User.find({job:'student'},function(err, users){
     for(let i=0; i<users.length; i++){
       const user = users[i]
       Result.findOne({
