@@ -8,6 +8,7 @@ var passport = require('./config/passport');
 var schedule = require('./config/schedule');
 var app = express();
 
+
 // DB setting
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -24,6 +25,8 @@ db.on('error', function(err){
 
 // Scheduleing
 schedule();
+
+
 
 // Other settings
 app.set('view engine', 'ejs');
@@ -55,7 +58,7 @@ app.use('/table', require('./routes/scan'));
 
 
 // Port setting
-var port = 30000;
+var port = 3000;
 app.listen(port, function(){
   console.log('server on! http://localhost:'+port);
 });

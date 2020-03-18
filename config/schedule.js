@@ -7,7 +7,7 @@ const addon = require('../build/Release/native')
 
 function scheduleSubjects() {
     Subject.find(function (err, subjects) {
-        if (err) return res.json(err);
+        if (err) return console.log(err);
         subjects.forEach(function (subject) {
             subject.dates.forEach(function (date) {
                 scheduleJob(date, subject)
@@ -61,18 +61,19 @@ function compareAndSave(date, subject, min) {
     const endTime = new Date(startTime.getTime() + 60000)
 
     Scan.find(function (err, scans) {
-            if (err) res.json(err)
+            if (err) console.log(err)
             scans.forEach(function (scan) {
                     let scanTime = new Date(scan.time)
                     User.find({job:'student'},function (err, users) {
-                            if (err) res.json(err)
+                            if (err) console.log(err)
                             users.forEach(function (user) {
                                 if ((user.macAddress == scan.address) && ((startTime <= scanTime) && (endTime >= scanTime))) {
                                     Result.findOne({
                                         username: user.username,
+                                        subject: subject,
                                         date: date
                                     }, function (err, result) {
-                                        if (err) res.json(err)
+                                        if (err) console.log(err)
                                         if (result == null) {
                                             // create
                                             Result.create({
@@ -86,14 +87,14 @@ function compareAndSave(date, subject, min) {
                                                     result: "O"
                                                 },
                                             }, function (err, result) {
-                                                if (err) return res.json(err);
+                                                if (err) return console.log(err);
                                                 console.log(result)
                                             })
                                         } 
                                         else {
                                             // update
                                             result.results.push({
-                                                minutes: i,
+                                                minutes: min,
                                                 time: scan.time,
                                                 result: "O"
                                             })
@@ -116,7 +117,8 @@ function restUsers(date, subject, min){
       const user = users[i]
       Result.findOne({
 	      username: user.username,
-	      date: date
+          subject: subject.subject,
+          date: date
       }, function (err, result) {
         if (result == null) {
 	
