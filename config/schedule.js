@@ -10,7 +10,9 @@ function scheduleSubjects() {
         if (err) return console.log(err);
         subjects.forEach(function (subject) {
             subject.dates.forEach(function (date) {
+                if(new Date(date)>= new Date()){
                 scheduleJob(date, subject)
+                   }
             }) // end of dates.forEach
         }) // end of subjects.forEach
     }) // end of Subject.find
