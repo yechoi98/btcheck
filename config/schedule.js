@@ -36,8 +36,10 @@ function scheduleJob(date, subject) {
             console.log(new Date().toLocaleString())
             addon.scanBluetoothDevices()
             compareAndSave(date, subject, min)
-	    restUsers(date, subject, min)
-            min = min + 5
+            setTimeout(function() {
+            restUsers(date, subject, min)
+            min = min+5
+            }, 5000);
         },
         start: false,
         timeZone: 'Asia/Seoul'
@@ -57,6 +59,7 @@ function scheduleJob(date, subject) {
 }
 
 function compareAndSave(date, subject, min) {
+    console.log('compareAndSave called\n', new Date)
     const startTime = new Date(new Date(date).getTime() + min * 60000)
     const endTime = new Date(startTime.getTime() + 60000)
 
@@ -64,13 +67,13 @@ function compareAndSave(date, subject, min) {
             if (err) console.log(err)
             scans.forEach(function (scan) {
                     let scanTime = new Date(scan.time)
-                    User.find({job:'student'},function (err, users) {
+                    User.find({job:'student', subject:subject.subject},function (err, users) {
                             if (err) console.log(err)
                             users.forEach(function (user) {
                                 if ((user.macAddress == scan.address) && ((startTime <= scanTime) && (endTime >= scanTime))) {
                                     Result.findOne({
                                         username: user.username,
-                                        subject: subject,
+                                        subject: subject.subject,
                                         date: date
                                     }, function (err, result) {
                                         if (err) console.log(err)
@@ -89,6 +92,7 @@ function compareAndSave(date, subject, min) {
                                             }, function (err, result) {
                                                 if (err) return console.log(err);
                                                 console.log(result)
+                                                console.log('first inserting result - O(create) end')
                                             })
                                         } 
                                         else {
@@ -100,6 +104,7 @@ function compareAndSave(date, subject, min) {
                                             })
                                             result.save()
                                             console.log(result)
+                                            console.log('first inserting result - O(update) end')
 
                                         } // else
                                     }) // Result.findOne
@@ -112,7 +117,8 @@ function compareAndSave(date, subject, min) {
 
 
 function restUsers(date, subject, min){
-  User.find({job:'student'},function(err, users){
+    console.log('restUsers called\n', new Date())
+  User.find({job:'student', subject:subject.subject},function(err, users){
     for(let i=0; i<users.length; i++){
       const user = users[i]
       Result.findOne({
@@ -120,6 +126,7 @@ function restUsers(date, subject, min){
           subject: subject.subject,
           date: date
       }, function (err, result) {
+          console.log(min)
         if (result == null) {
 	
                                             // create
@@ -136,12 +143,15 @@ function restUsers(date, subject, min){
                                             }, function (err, result) {
                                                 if (err) return res.json(err);
                                                 console.log(result)
+                                                console.log('second inserting result(create) - X end')
                                             })
 	}
 	else { 
 		let isExist = false
 		for(let i=0; i<result.results.length; i++){
-		  if(result.results[i].minutes == min) {isExist = true}
+		  if(result.results[i].minutes == min) {
+              isExist = true
+          }
 		}
 		if(isExist == false) {
 		  // update
@@ -152,9 +162,11 @@ function restUsers(date, subject, min){
                                             })
                                             result.save()
                                             console.log(result)
+                                            console.log('second inserting result - X(update) end')
 
 		
 		}
+        console.log(isExist)
 	}
       
       })
