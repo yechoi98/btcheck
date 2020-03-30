@@ -9,7 +9,6 @@ var resultSchema = mongoose.Schema({
   results:[{minutes: Number, time:Date, result:String}]
 });
 
-
 // model & export
 var Result = mongoose.model('result', resultSchema);
 module.exports = Result;
