@@ -23,7 +23,7 @@ db.on('error', function(err){
 });
 
 // Scheduleing
-schedule();
+//schedule();
 
 // Other settings
 app.set('view engine', 'ejs');
@@ -49,10 +49,11 @@ app.use(function(req,res,next){
 // Routes
 app.use('/', require('./routes/home'));
 app.use('/datatable', require('./routes/scans'));
+app.use('/table', require('./routes/scan'));
 app.use('/users', require('./routes/users'));
 
 // Port setting
-var port = 3000;
+var port = 30000;
 app.listen(port, function(){
   console.log('server on! http://localhost:'+port);
 });
