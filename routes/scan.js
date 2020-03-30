@@ -14,18 +14,18 @@ router.get('/', util.isLoggedin, checkPermission ,function(req, res){
         .exec(function(err, results){
           if(err) return res.json(err);
           res.render('users/table', {subjects:subjects, results:results, subjectSelect:null});   
+
         })
       });
   });
   
-  router.post('/result', util.isLoggedin, checkPermission ,function(req, res){
+router.post('/result', util.isLoggedin, checkPermission ,function(req, res){
     Subject.find({})
     .exec(function(err, subjects){
       if(err) return res.json(err);     
       Result.find({})
       .exec(function(err, results){
         if(err) return res.json(err);
-        
         res.render('users/table', {subjects:subjects, results: results, subjectSelect:req.body.subjectSelect, moment});   
         console.log(subjects, results, req.body.subjectSelect)
         });  

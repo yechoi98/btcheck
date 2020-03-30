@@ -29,6 +29,8 @@ router.post('/result', util.isLoggedin, checkPermission ,function(req, res){
   });
 })
 
+
+
 module.exports = router;
 
 // private functions
@@ -36,3 +38,4 @@ function checkPermission(req, res, next){
   if(req.user.job != "professor") return util.noPermission(req, res);
   next();
 }
+

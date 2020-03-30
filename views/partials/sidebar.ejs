@@ -40,10 +40,18 @@
         <a class="nav-link" href="/datatable">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
-      </li>
-      <% } else if(currentUser.job=="student"){ %>
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+
+      <% }  else if(currentUser.job=="student"){ %>
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+  
+        <!-- Nav Item - Tables -->
+        <li class="nav-item active">
+          <a class="nav-link" href="/table">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span></a>
+        </li>
+        <% } %>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item active">
