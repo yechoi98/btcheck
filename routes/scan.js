@@ -13,7 +13,11 @@ router.get('/', util.isLoggedin, checkPermission ,function(req, res){
         Result.find({})
         .exec(function(err, results){
           if(err) return res.json(err);
+<<<<<<< HEAD
           res.render('users/table', {subjects:subjects, results:results, subjectSelect:null});   
+=======
+          res.render('users/table', {subjects:subjects, results:results, subjectSelect:null, dateTd:null});   
+>>>>>>> 980963348962429c616d4380a1ad19277ef6e79b
         })
       });
   });
@@ -25,6 +29,7 @@ router.get('/', util.isLoggedin, checkPermission ,function(req, res){
       Result.find({})
       .exec(function(err, results){
         if(err) return res.json(err);
+<<<<<<< HEAD
         
         res.render('users/table', {subjects:subjects, results: results, subjectSelect:req.body.subjectSelect, moment});   
         console.log(subjects, results, req.body.subjectSelect)
@@ -44,6 +49,18 @@ router.get('/', util.isLoggedin, checkPermission ,function(req, res){
     weekdaysShort: ["일","월","화","수","목","금","토"],
 });
 
+=======
+        res.render('users/table', {subjects:subjects, results: results, subjectSelect:req.body.subjectSelect, date:req.body.date, moment});   
+      })
+    });
+  })
+
+  moment.locale('ko',{
+    weekdays: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
+    weekdaysShort: ["일","월","화","수","목","금","토"],
+  });
+  
+>>>>>>> 980963348962429c616d4380a1ad19277ef6e79b
 
 
 module.exports = router;
